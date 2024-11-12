@@ -5,6 +5,7 @@ import { Metadata } from 'next/types'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
 import '@/styles/globals.css'
+import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: 'Nexulty › Elevate your IT-Support',
@@ -23,6 +24,13 @@ export default function RootLayout({ children }: Props) {
       className={`${GeistSans.variable} ${GeistMono.variable}`}
     >
       <body className='antialiased'>
+        {process.env.NODE_ENV === 'production' && (
+          <Script
+            defer
+            src='https://analytics.strmrlab.de/script.js'
+            data-website-id='74586d46-3019-4962-8a0e-9aa453756f07'
+          />
+        )}
         <main className='h-screen w-screen'>
           <NuqsAdapter>{children}</NuqsAdapter>
         </main>

@@ -31,6 +31,20 @@ export async function getWorkspace(
 
 // Ticket
 
+export async function getTicket(
+  supabase: SupabaseClient<Database>,
+  domain: string,
+  ticketId: string,
+) {
+  return supabase
+    .from('tickets')
+    .select('*, workspace:workspaces(domain), status:ticket_statuses(*)')
+    .eq('workspace.domain', domain)
+    .eq('id', ticketId)
+    .single()
+    .throwOnError()
+}
+
 export async function getTickets(
   supabase: SupabaseClient<Database>,
   domain: string,

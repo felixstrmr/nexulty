@@ -1,8 +1,9 @@
+import { Toaster } from '@/components/ui/sonner'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import { Metadata } from 'next/types'
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
-import { Toaster } from '@/components/ui/sonner'
 import '@/styles/globals.css'
 
 export const metadata: Metadata = {
@@ -22,7 +23,9 @@ export default function RootLayout({ children }: Props) {
       className={`${GeistSans.variable} ${GeistMono.variable}`}
     >
       <body className='antialiased'>
-        <main className='h-screen w-screen'>{children}</main>
+        <main className='h-screen w-screen'>
+          <NuqsAdapter>{children}</NuqsAdapter>
+        </main>
         <Toaster />
       </body>
     </html>

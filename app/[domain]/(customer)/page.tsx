@@ -1,6 +1,6 @@
-import { columns } from '@/components/tables/tickets/customer/columns'
-import { DataTable } from '@/components/tables/tickets/customer/data-table'
+import TicketCustomerViewTabs from '@/components/tabs/ticket-customer-view-tabs'
 import { buttonVariants } from '@/components/ui/button'
+import TicketCustomerView from '@/components/views/tickets/customer/ticket-customer-view'
 import { env } from '@/lib/env'
 import { getTickets } from '@/lib/queries'
 import { createClient } from '@/lib/supabase/server'
@@ -24,15 +24,18 @@ export default async function Page({ params }: Props) {
     <div className='mx-auto flex size-full max-w-6xl flex-col space-y-6 py-6'>
       <div className='flex items-center justify-between'>
         <h4>Open Tickets ({tickets.length})</h4>
-        <Link
-          href={'/create'}
-          className={buttonVariants({ variant: 'default' })}
-        >
-          <Plus />
-          Create Ticket
-        </Link>
+        <div className='flex items-center gap-2'>
+          <TicketCustomerViewTabs />
+          <Link
+            href={'/create'}
+            className={buttonVariants({ variant: 'default' })}
+          >
+            <Plus />
+            Create Ticket
+          </Link>
+        </div>
       </div>
-      <DataTable columns={columns} data={tickets} />
+      <TicketCustomerView tickets={tickets} />
     </div>
   )
 }

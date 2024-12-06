@@ -2,9 +2,7 @@ import JoinWaitlistForm from '@/components/forms/join-waitlist-form'
 import Nexulty from '@/components/icons/nexulty'
 import Link from 'next/link'
 
-type Props = {}
-
-export default function Page({}: Props) {
+export default function Page() {
   return (
     <div className='size-full p-6'>
       <div className='size-full rounded-2xl bg-muted'>

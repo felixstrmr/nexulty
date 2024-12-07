@@ -17,6 +17,25 @@ export async function getTickets(
   return data
 }
 
+export async function getTicket(
+  supabase: SupabaseClient<Database>,
+  domain: string,
+  ticketId: string,
+) {
+  const { data, error } = await supabase
+    .from('tickets')
+    .select(
+      '*, tenant:tenants!inner(domain), status:ticket_statuses(*), reporter:users!inner(id, display_name), type:ticket_types(*), assignee:users!inner(id,display_name)',
+    )
+    .eq('tenant.domain', domain)
+    .eq('id', ticketId)
+    .single()
+
+  if (error) throw error
+
+  return data
+}
+
 export async function getTicketStatuses(
   supabase: SupabaseClient<Database>,
   domain: string,

@@ -9,6 +9,32 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      tenant_counters: {
+        Row: {
+          created_at: string
+          id: string
+          tickets: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          tickets?: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          tickets?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tenant_counters_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tenants: {
         Row: {
           created_at: string
@@ -29,6 +55,52 @@ export type Database = {
           name?: string
         }
         Relationships: []
+      }
+      ticket_assignees: {
+        Row: {
+          assignee: string
+          created_at: string
+          id: string
+          tenant: string
+          ticket: string
+        }
+        Insert: {
+          assignee: string
+          created_at?: string
+          id?: string
+          tenant: string
+          ticket: string
+        }
+        Update: {
+          assignee?: string
+          created_at?: string
+          id?: string
+          tenant?: string
+          ticket?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_assignees_assignee_fkey"
+            columns: ["assignee"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ticket_assignees_tenant_fkey"
+            columns: ["tenant"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ticket_assignees_ticket_fkey"
+            columns: ["ticket"]
+            isOneToOne: false
+            referencedRelation: "tickets"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       ticket_statuses: {
         Row: {
@@ -112,7 +184,9 @@ export type Database = {
       tickets: {
         Row: {
           created_at: string
+          description: string | null
           id: string
+          number: number
           reporter: string
           status: string
           subject: string
@@ -121,7 +195,9 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          description?: string | null
           id?: string
+          number: number
           reporter?: string
           status: string
           subject: string
@@ -130,7 +206,9 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          description?: string | null
           id?: string
+          number?: number
           reporter?: string
           status?: string
           subject?: string
@@ -170,25 +248,40 @@ export type Database = {
       }
       users: {
         Row: {
+          avatar: string | null
           created_at: string
+          display_name: string | null
           email: string
+          first_name: string | null
           id: string
+          last_name: string | null
           role: Database["public"]["Enums"]["user_roles"] | null
           tenant: string | null
+          username: string | null
         }
         Insert: {
+          avatar?: string | null
           created_at?: string
+          display_name?: string | null
           email: string
+          first_name?: string | null
           id?: string
+          last_name?: string | null
           role?: Database["public"]["Enums"]["user_roles"] | null
           tenant?: string | null
+          username?: string | null
         }
         Update: {
+          avatar?: string | null
           created_at?: string
+          display_name?: string | null
           email?: string
+          first_name?: string | null
           id?: string
+          last_name?: string | null
           role?: Database["public"]["Enums"]["user_roles"] | null
           tenant?: string | null
+          username?: string | null
         }
         Relationships: [
           {

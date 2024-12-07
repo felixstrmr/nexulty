@@ -1,5 +1,5 @@
 import TicketSidebar from '@/components/sidebars/ticket-sidebar'
-import { getTicketStatuses } from '@/lib/queries'
+import { getTicketStatusesWithCache } from '@/lib/queries/cached'
 import { createClient } from '@/lib/supabase/server'
 import { getDomain } from '@/lib/utils'
 
@@ -13,7 +13,7 @@ export default async function TicketsLayout({ params, children }: Props) {
   domain = getDomain(domain)
 
   const supabase = await createClient()
-  const ticketStatuses = await getTicketStatuses(supabase, domain)
+  const ticketStatuses = await getTicketStatusesWithCache(supabase, domain)
 
   return (
     <div className='flex size-full'>

@@ -9,7 +9,152 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      tenants: {
+        Row: {
+          created_at: string
+          domain: string
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          domain: string
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          domain?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      ticket_statuses: {
+        Row: {
+          color: string
+          created_at: string
+          icon: string
+          id: string
+          is_default: boolean
+          name: string
+          position: number
+          tenant: string
+          type: Database["public"]["Enums"]["ticket_status_types"]
+        }
+        Insert: {
+          color: string
+          created_at?: string
+          icon: string
+          id?: string
+          is_default?: boolean
+          name: string
+          position: number
+          tenant: string
+          type: Database["public"]["Enums"]["ticket_status_types"]
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          icon?: string
+          id?: string
+          is_default?: boolean
+          name?: string
+          position?: number
+          tenant?: string
+          type?: Database["public"]["Enums"]["ticket_status_types"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_statuses_tenant_fkey"
+            columns: ["tenant"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tickets: {
+        Row: {
+          created_at: string
+          id: string
+          reporter: string
+          status: string
+          subject: string
+          tenant: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          reporter?: string
+          status: string
+          subject: string
+          tenant: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          reporter?: string
+          status?: string
+          subject?: string
+          tenant?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tickets_reporter_fkey"
+            columns: ["reporter"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tickets_status_fkey"
+            columns: ["status"]
+            isOneToOne: false
+            referencedRelation: "ticket_statuses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tickets_tenant_fkey"
+            columns: ["tenant"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      users: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          role: Database["public"]["Enums"]["user_roles"] | null
+          tenant: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          role?: Database["public"]["Enums"]["user_roles"] | null
+          tenant?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          role?: Database["public"]["Enums"]["user_roles"] | null
+          tenant?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "users_tenant_fkey"
+            columns: ["tenant"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -18,7 +163,8 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      ticket_status_types: "uncompleted" | "completed"
+      user_roles: "agent" | "customer"
     }
     CompositeTypes: {
       [_ in never]: never

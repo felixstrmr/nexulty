@@ -42,11 +42,8 @@ export const columns: ColumnDef<TicketWithRelations>[] = [
 
       return (
         <Tooltip>
-          <TooltipTrigger className='flex items-center'>
-            <DynamicIcon
-              icon={ticket.type.icon}
-              style={{ color: ticket.type.color }}
-            />
+          <TooltipTrigger className='flex items-center text-primary'>
+            <DynamicIcon icon={ticket.type.icon} />
           </TooltipTrigger>
           <TooltipContent>
             <p>{ticket.type.name}</p>
@@ -62,11 +59,15 @@ export const columns: ColumnDef<TicketWithRelations>[] = [
       const ticket = row.original
 
       return (
-        <div className='flex items-center gap-2'>
-          <DynamicIcon
-            icon={ticket.status.icon}
-            style={{ color: ticket.status.color }}
-          />
+        <div
+          className='flex w-fit items-center gap-2 rounded-md border p-1 pr-2 text-xs'
+          style={{
+            color: ticket.status.color,
+            backgroundColor: ticket.status.color + '10',
+            borderColor: ticket.status.color + '15',
+          }}
+        >
+          <DynamicIcon icon={ticket.status.icon} />
           {ticket.status.name}
         </div>
       )

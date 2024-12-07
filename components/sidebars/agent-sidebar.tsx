@@ -72,7 +72,7 @@ const SidebarItem = ({ item }: { item: SidebarItemProps }) => {
       className={cn(
         'flex size-9 items-center justify-center rounded-md border transition-all',
         item.active
-          ? 'border-border bg-muted text-foreground shadow'
+          ? 'border-border bg-muted text-primary shadow'
           : 'border-transparent text-muted-foreground hover:bg-muted hover:text-foreground',
       )}
     >

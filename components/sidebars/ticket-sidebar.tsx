@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { TicketStatus } from '@/lib/types'
 import { cn } from '@/lib/utils'
-import { ChevronDown, MoreVertical, Plus } from 'lucide-react'
+import { ChevronDown, MoreVertical, Plus, Search } from 'lucide-react'
 import { parseAsString, useQueryState } from 'nuqs'
 import React from 'react'
 
@@ -104,7 +104,10 @@ export default function TicketSidebar({ ticketStatuses }: Props) {
   return (
     <aside className='w-64 min-w-64 border-r p-4'>
       <div className='flex h-9 items-center justify-between'>
-        <h4>Tickets</h4>
+        <div className='flex items-center gap-2 text-sm text-muted-foreground'>
+          <Search className='size-4 text-muted-foreground' />
+          Search...
+        </div>
         <div className='flex items-center gap-2'>
           <Button variant='ghost' size='iconSm'>
             <Plus />

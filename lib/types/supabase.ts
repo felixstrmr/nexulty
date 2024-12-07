@@ -74,6 +74,41 @@ export type Database = {
           },
         ]
       }
+      ticket_types: {
+        Row: {
+          color: string
+          created_at: string
+          icon: string
+          id: string
+          name: string
+          tenant: string
+        }
+        Insert: {
+          color: string
+          created_at?: string
+          icon: string
+          id?: string
+          name: string
+          tenant: string
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          icon?: string
+          id?: string
+          name?: string
+          tenant?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_types_tenant_fkey"
+            columns: ["tenant"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tickets: {
         Row: {
           created_at: string
@@ -82,6 +117,7 @@ export type Database = {
           status: string
           subject: string
           tenant: string
+          type: string
         }
         Insert: {
           created_at?: string
@@ -90,6 +126,7 @@ export type Database = {
           status: string
           subject: string
           tenant: string
+          type: string
         }
         Update: {
           created_at?: string
@@ -98,6 +135,7 @@ export type Database = {
           status?: string
           subject?: string
           tenant?: string
+          type?: string
         }
         Relationships: [
           {
@@ -119,6 +157,13 @@ export type Database = {
             columns: ["tenant"]
             isOneToOne: false
             referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tickets_type_fkey"
+            columns: ["type"]
+            isOneToOne: false
+            referencedRelation: "ticket_types"
             referencedColumns: ["id"]
           },
         ]

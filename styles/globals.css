@@ -60,7 +60,7 @@
 
 @layer base {
   * {
-    @apply border-border antialiased duration-200;
+    @apply border-border antialiased;
   }
   body {
     @apply bg-background text-foreground;

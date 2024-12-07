@@ -1,6 +1,22 @@
 import { Database } from '@/lib/types/supabase'
 import { SupabaseClient } from '@supabase/supabase-js'
 
+export async function getTickets(
+  supabase: SupabaseClient<Database>,
+  domain: string,
+) {
+  const { data, error } = await supabase
+    .from('tickets')
+    .select(
+      '*, tenant:tenants!inner(domain), status:ticket_statuses(*), reporter:users!inner(email), type:ticket_types(*)',
+    )
+    .eq('tenant.domain', domain)
+
+  if (error) throw error
+
+  return data
+}
+
 export async function getTicketStatuses(
   supabase: SupabaseClient<Database>,
   domain: string,

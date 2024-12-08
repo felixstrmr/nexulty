@@ -4,6 +4,7 @@ import Nexulty from '@/components/icons/nexulty'
 import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
 import {
+  BookText,
   Home,
   LucideIcon,
   MonitorSmartphone,
@@ -34,6 +35,12 @@ export default function AgentSidebar() {
       href: '/agent/assets',
       active: segment === 'assets',
       icon: MonitorSmartphone,
+    },
+    {
+      name: 'Knowledge Base',
+      href: '/agent/knowledge-base',
+      active: segment === 'knowledge-base',
+      icon: BookText,
     },
     {
       name: 'users',

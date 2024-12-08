@@ -15,7 +15,7 @@ export default async function Page({ params }: Props) {
   const tickets = await getTickets(supabase, domain)
 
   return (
-    <div className='flex size-full flex-col space-y-6 bg-muted/50 p-6'>
+    <div className='flex size-full flex-col space-y-6 bg-muted/25 p-6'>
       <TicketsAgentView tickets={tickets} />
     </div>
   )

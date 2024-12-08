@@ -14,3 +14,9 @@ export const joinWaitlistSchema = z.object({
     .email({ message: 'Please enter a valid email address' })
     .min(1, { message: 'Email is required' }),
 })
+
+export const createTicketCommentSchema = z.object({
+  comment: z.string().min(1, { message: 'Comment is required' }),
+  tenantId: z.string().uuid().min(1),
+  ticketId: z.string().uuid().min(1),
+})

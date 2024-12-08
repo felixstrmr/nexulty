@@ -1,12 +1,14 @@
 'use client'
 
 import DynamicIcon from '@/components/dynamic-icon'
+import ProfilePicture from '@/components/profile-picture'
 import { Checkbox } from '@/components/ui/checkbox'
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { User } from '@/lib/types'
 import { TicketWithRelations } from '@/lib/types/custom'
 import { formatRelativeTime } from '@/lib/utils'
 import { ColumnDef } from '@tanstack/react-table'
@@ -90,7 +92,16 @@ export const columns: ColumnDef<TicketWithRelations>[] = [
   {
     accessorKey: 'reporter',
     header: 'Reporter',
-    cell: ({ row }) => row.original.reporter.email,
+    cell: ({ row }) => {
+      const ticket = row.original
+
+      return (
+        <div className='flex items-center gap-2'>
+          <ProfilePicture user={ticket.reporter as unknown as User} size={28} />
+          <p>{ticket.reporter.display_name}</p>
+        </div>
+      )
+    },
   },
   {
     accessorKey: 'createdAt',

@@ -24,7 +24,7 @@ export default function RootLayout({ children }: Props) {
       suppressHydrationWarning
       className={`${GeistSans.variable} ${GeistMono.variable}`}
     >
-      <body className='text-neutral-900 antialiased'>
+      <body className='antialiased'>
         <NuqsAdapter>
           <TooltipProvider>
             <main className='h-screen w-screen'>{children}</main>

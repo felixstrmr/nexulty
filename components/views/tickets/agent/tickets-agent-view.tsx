@@ -10,28 +10,24 @@ type Props = {
 }
 
 export default function TicketsAgentView({ tickets }: Props) {
-  const [currentStatus] = useQueryState(
+  const [status] = useQueryState(
     'status',
     parseAsString.withDefault('uncompleted'),
   )
+  const [sort] = useQueryState('sortBy', parseAsString.withDefault('number'))
 
-  const filteredTickets = tickets.filter((ticket) =>
-    currentStatus === 'uncompleted'
-      ? ticket.status.type === 'uncompleted'
-      : currentStatus === 'completed'
-        ? ticket.status.type === 'completed'
-        : ticket.status.id === currentStatus,
-  )
+  const filteredTickets = tickets
+    .filter((ticket) =>
+      status === 'uncompleted'
+        ? ticket.status.type === 'uncompleted'
+        : status === 'completed'
+          ? ticket.status.type === 'completed'
+          : ticket.status.id === status,
+    )
+    .sort((a, b) => {
+      if (sort === 'number') return Number(b.number) - Number(a.number)
+      return 0
+    })
 
-  return (
-    <>
-      <div className='flex items-center gap-4'>
-        <h3>Tickets</h3>
-        <div className='rounded-sm border border-primary/15 bg-primary/10 px-2 text-sm text-primary'>
-          {filteredTickets.length}
-        </div>
-      </div>
-      <DataTable columns={columns} data={filteredTickets} />
-    </>
-  )
+  return <DataTable columns={columns} data={filteredTickets} />
 }

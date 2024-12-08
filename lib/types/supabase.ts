@@ -102,6 +102,96 @@ export type Database = {
           },
         ]
       }
+      ticket_comments: {
+        Row: {
+          comment: string
+          created_at: string
+          id: string
+          tenant: string
+          ticket: string
+          user: string
+        }
+        Insert: {
+          comment: string
+          created_at?: string
+          id?: string
+          tenant: string
+          ticket: string
+          user?: string
+        }
+        Update: {
+          comment?: string
+          created_at?: string
+          id?: string
+          tenant?: string
+          ticket?: string
+          user?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_comments_tenant_fkey"
+            columns: ["tenant"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ticket_comments_ticket_fkey"
+            columns: ["ticket"]
+            isOneToOne: false
+            referencedRelation: "tickets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ticket_comments_user_fkey"
+            columns: ["user"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ticket_priorities: {
+        Row: {
+          color: string
+          created_at: string
+          icon: string
+          id: string
+          is_default: boolean
+          name: string
+          position: number
+          tenant: string
+        }
+        Insert: {
+          color: string
+          created_at?: string
+          icon: string
+          id?: string
+          is_default?: boolean
+          name: string
+          position: number
+          tenant: string
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          icon?: string
+          id?: string
+          is_default?: boolean
+          name?: string
+          position?: number
+          tenant?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_priorities_tenant_fkey"
+            columns: ["tenant"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ticket_statuses: {
         Row: {
           color: string
@@ -187,6 +277,7 @@ export type Database = {
           description: string | null
           id: string
           number: number
+          priority: string
           reporter: string
           status: string
           subject: string
@@ -198,6 +289,7 @@ export type Database = {
           description?: string | null
           id?: string
           number: number
+          priority: string
           reporter?: string
           status: string
           subject: string
@@ -209,6 +301,7 @@ export type Database = {
           description?: string | null
           id?: string
           number?: number
+          priority?: string
           reporter?: string
           status?: string
           subject?: string
@@ -216,6 +309,13 @@ export type Database = {
           type?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "tickets_priority_fkey"
+            columns: ["priority"]
+            isOneToOne: false
+            referencedRelation: "ticket_priorities"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "tickets_reporter_fkey"
             columns: ["reporter"]

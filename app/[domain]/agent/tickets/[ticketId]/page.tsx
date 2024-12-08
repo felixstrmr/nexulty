@@ -1,8 +1,9 @@
-import DynamicIcon from '@/components/dynamic-icon'
+import { buttonVariants } from '@/components/ui/button'
+import TicketComments from '@/components/views/ticket/ticket-comments'
 import { getTicket } from '@/lib/queries'
 import { createClient } from '@/lib/supabase/server'
-import { getDomain } from '@/lib/utils'
-import { ArrowLeftIcon } from 'lucide-react'
+import { cn, getDomain } from '@/lib/utils'
+import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
@@ -10,7 +11,7 @@ type Props = {
   params: Promise<{ domain: string; ticketId: string }>
 }
 
-export default async function Page({ params }: Props) {
+export default async function TicketDetailsPage({ params }: Props) {
   const { domain: domainParam, ticketId } = await params
   const domain = getDomain(domainParam)
 
@@ -20,56 +21,26 @@ export default async function Page({ params }: Props) {
   if (!ticket) return notFound()
 
   return (
-    <div className='flex size-full flex-col space-y-12 p-6'>
-      <div>
-        <Link
-          href={'/agent/tickets'}
-          className='flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground'
-        >
-          <ArrowLeftIcon className='size-4' />
-          Tickets
-        </Link>
-      </div>
-      <div className='mx-auto w-full max-w-2xl duration-300 animate-in slide-in-from-bottom-3'>
-        <p className='mb-2 text-primary'>#{ticket.number}</p>
-        <h3>{ticket.subject}</h3>
-        <div className='mt-9 flex gap-16'>
-          <div className='flex flex-col gap-3 text-sm'>
-            <div className='flex items-center gap-9'>
-              <p className='w-24'>Status</p>
-              <div className='flex w-fit items-center gap-2 rounded-md p-1 px-2 transition-colors hover:bg-muted'>
-                <DynamicIcon
-                  icon={ticket.status.icon}
-                  style={{ color: ticket.status.color }}
-                />
-                <p>{ticket.status.name}</p>
-              </div>
-            </div>
-            <div className='flex items-center gap-9'>
-              <p className='w-24'>Reporter</p>
-              <Link
-                href={`/agent/users/${ticket.reporter.id}`}
-                className='flex w-fit items-center gap-2 rounded-md p-1 px-2 transition-colors hover:bg-muted'
-              >
-                <p>{ticket.reporter.display_name}</p>
-              </Link>
-            </div>
-            <div className='flex items-center gap-9'>
-              <p className='w-24'>Assignee</p>
-              <Link
-                href={`/agent/users/${ticket.assignee.id}`}
-                className='flex w-fit items-center gap-2 rounded-md p-1 px-2 transition-colors hover:bg-muted'
-              >
-                <p>{ticket.assignee.display_name}</p>
-              </Link>
-            </div>
+    <div className='flex size-full flex-col space-y-6 bg-muted/50 p-6'>
+      <Link
+        href={'/agent/tickets'}
+        className={cn(buttonVariants({ variant: 'ghost' }), 'w-fit')}
+      >
+        <ArrowLeft className='size-4' />
+        Tickets
+      </Link>
+      <div className='size-full space-y-4'>
+        <div className='mx-auto flex w-full max-w-6xl gap-4'>
+          <div className='w-2/3 rounded-2xl border bg-background p-6'>
+            <p className='text-sm text-primary'>Ticket #{ticket.number}</p>
+            <h3 className='mt-2'>{ticket.subject}</h3>
+          </div>
+          <div className='w-1/3 rounded-2xl border bg-background p-6'>
+            <h4>Information</h4>
           </div>
         </div>
-        <div className='mt-9'>
-          <p className='text-sm font-medium'>Description</p>
-          <p className='mt-2 text-sm'>
-            {ticket.description || 'No description'}
-          </p>
+        <div className='mx-auto flex w-full max-w-6xl rounded-2xl border bg-background p-6'>
+          <TicketComments ticket={ticket} domain={domain} />
         </div>
       </div>
     </div>

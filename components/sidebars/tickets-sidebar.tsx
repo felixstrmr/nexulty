@@ -3,14 +3,19 @@
 import TicketStatusIcon from '@/components/icons/dynamic/ticket-status-icon'
 import { TicketStatus } from '@/types'
 import { cn } from '@/utils'
-import { useQueryState } from 'nuqs'
+import { parseAsString, useQueryState } from 'nuqs'
 
 type Props = {
   statuses: TicketStatus[]
 }
 
 export default function TicketsSidebar({ statuses }: Props) {
-  const [activeStatus, setActiveStatus] = useQueryState('status')
+  const defaultStatus = statuses.find((status) => status.is_default)
+
+  const [activeStatus, setActiveStatus] = useQueryState(
+    'status',
+    parseAsString.withDefault(defaultStatus?.id ?? ''),
+  )
 
   return (
     <aside className='flex w-64 max-w-64 min-w-64 flex-col p-4'>

@@ -59,6 +59,35 @@ export type Database = {
           },
         ]
       }
+      ticket_statuses: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          organization: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          organization: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          organization?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_statuses_organization_fkey"
+            columns: ["organization"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ticket_types: {
         Row: {
           created_at: string
@@ -90,32 +119,62 @@ export type Database = {
       }
       tickets: {
         Row: {
+          category: string
           created_at: string
           description: string | null
           id: string
           name: string
           organization: string
+          status: string
+          type: string
         }
         Insert: {
+          category: string
           created_at?: string
           description?: string | null
           id?: string
           name: string
           organization: string
+          status: string
+          type: string
         }
         Update: {
+          category?: string
           created_at?: string
           description?: string | null
           id?: string
           name?: string
           organization?: string
+          status?: string
+          type?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "tickets_category_fkey"
+            columns: ["category"]
+            isOneToOne: false
+            referencedRelation: "ticket_categories"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "tickets_organization_fkey"
             columns: ["organization"]
             isOneToOne: false
             referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tickets_status_fkey"
+            columns: ["status"]
+            isOneToOne: false
+            referencedRelation: "ticket_statuses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tickets_type_fkey"
+            columns: ["type"]
+            isOneToOne: false
+            referencedRelation: "ticket_types"
             referencedColumns: ["id"]
           },
         ]

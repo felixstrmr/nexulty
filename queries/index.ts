@@ -3,7 +3,7 @@ import { Supabase } from '@/types'
 export async function getOrganizationUserQuery(
   supabase: Supabase,
   domain: string,
-  user: string,
+  userId: string,
 ) {
   const { data } = await supabase
     .from('users')
@@ -14,7 +14,7 @@ export async function getOrganizationUserQuery(
         `,
     )
     .eq('organization.domain', domain)
-    .eq('id', user)
+    .eq('id', userId)
     .maybeSingle()
     .throwOnError()
 

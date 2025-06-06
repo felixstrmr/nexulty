@@ -18,7 +18,10 @@ export default function TicketsSidebar({ statuses }: Props) {
   )
 
   return (
-    <aside className='flex w-64 max-w-64 min-w-64 flex-col p-4'>
+    <aside className='flex w-64 max-w-64 min-w-64 flex-col gap-4 border-r p-4'>
+      <div className='flex h-8 items-center'>
+        <h1 className='text-2xl font-semibold tracking-tight'>Tickets</h1>
+      </div>
       <div className='space-y-1'>
         {statuses.map((status) => (
           <SidebarItem

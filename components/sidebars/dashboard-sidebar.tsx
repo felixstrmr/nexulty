@@ -3,6 +3,7 @@
 import HouseIcon from '@/components/icons/house-icon'
 import SettingsIcon from '@/components/icons/settings-icon'
 import TicketCheckIcon from '@/components/icons/ticket-check-icon'
+import { Button } from '@/components/ui/button'
 import {
   Tooltip,
   TooltipContent,
@@ -44,7 +45,8 @@ export default function DashboardSidebar() {
   ]
 
   return (
-    <aside className='flex flex-col border border-transparent p-4'>
+    <aside className='flex flex-col gap-4 border border-transparent p-4'>
+      <Button size={'icon'}></Button>
       <div className='flex h-full flex-col justify-between'>
         <div className='space-y-1'>
           {itemsTop.map((item) => (
@@ -76,10 +78,10 @@ function SidebarItem(item: SidebarItemProps) {
         <Link
           href={item.href}
           className={cn(
-            'flex size-8 items-center justify-center rounded-md transition-all',
+            'flex size-8 items-center justify-center rounded-md border transition-all',
             item.isActive
-              ? 'text-foreground bg-zinc-200'
-              : 'text-muted-foreground bg-transparent hover:bg-zinc-200',
+              ? 'text-primary bg-background border-border shadow-xs'
+              : 'text-muted-foreground hover:bg-background hover:border-border border-transparent bg-transparent',
           )}
         >
           {item.isActive ? (

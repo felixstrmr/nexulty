@@ -13,5 +13,70 @@ export const organizationSetupTask = schemaTask({
   schema: z.object({
     organizationId: z.string(),
   }),
-  run: async (payload) => {},
+  run: async (payload) => {
+    const { organizationId } = payload
+
+    const defaultTicketStatuses = [
+      {
+        name: 'New',
+      },
+      {
+        name: 'Assigned',
+      },
+      {
+        name: 'In Progress',
+      },
+      {
+        name: 'Pending',
+      },
+      {
+        name: 'Resolved',
+      },
+      {
+        name: 'Closed',
+      },
+      {
+        name: 'Cancelled',
+      },
+    ]
+
+    const defaultTicketTypes = [
+      {
+        name: 'Service Request',
+      },
+      {
+        name: 'Change Request',
+      },
+      {
+        name: 'Incident',
+      },
+      {
+        name: 'Problem',
+      },
+    ]
+
+    const defaultTicketCategoryGroups = [{}]
+
+    const defaultTicketStatusesPromise = supabase
+      .from('ticket_statuses')
+      .insert(
+        defaultTicketStatuses.map((status) => ({
+          ...status,
+          organization: organizationId,
+        })),
+      )
+      .throwOnError()
+
+    const defaultTicketTypesPromise = supabase
+      .from('ticket_types')
+      .insert(
+        defaultTicketTypes.map((type) => ({
+          ...type,
+          organization: organizationId,
+        })),
+      )
+      .throwOnError()
+
+    await Promise.all([defaultTicketStatusesPromise, defaultTicketTypesPromise])
+  },
 })

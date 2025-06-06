@@ -47,7 +47,7 @@ function SidebarItem(item: SidebarItemProps) {
     <div
       onClick={item.onClick}
       className={cn(
-        'flex h-8 cursor-pointer items-center gap-2 rounded-md px-2 text-sm transition-all',
+        'flex h-8 cursor-pointer items-center gap-2 rounded-md px-2 transition-all',
         item.isActive
           ? 'bg-muted text-foreground'
           : 'text-muted-foreground hover:bg-muted bg-transparent',

@@ -9,6 +9,64 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      departments: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          organization: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          organization: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          organization?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "departments_organization_fkey"
+            columns: ["organization"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      groups: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          organization: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          organization: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          organization?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "groups_organization_fkey"
+            columns: ["organization"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       organizations: {
         Row: {
           created_at: string
@@ -33,6 +91,45 @@ export type Database = {
       ticket_categories: {
         Row: {
           created_at: string
+          group: string | null
+          id: string
+          name: string
+          organization: string
+        }
+        Insert: {
+          created_at?: string
+          group?: string | null
+          id?: string
+          name: string
+          organization: string
+        }
+        Update: {
+          created_at?: string
+          group?: string | null
+          id?: string
+          name?: string
+          organization?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_categories_group_fkey"
+            columns: ["group"]
+            isOneToOne: false
+            referencedRelation: "ticket_category_groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ticket_categories_organization_fkey"
+            columns: ["organization"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ticket_category_groups: {
+        Row: {
+          created_at: string
           id: string
           name: string
           organization: string
@@ -51,7 +148,7 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "ticket_categories_organization_fkey"
+            foreignKeyName: "ticket_category_group_organization_fkey"
             columns: ["organization"]
             isOneToOne: false
             referencedRelation: "organizations"
@@ -62,19 +159,25 @@ export type Database = {
       ticket_statuses: {
         Row: {
           created_at: string
+          icon: string
           id: string
+          is_default: boolean
           name: string
           organization: string
         }
         Insert: {
           created_at?: string
+          icon: string
           id?: string
+          is_default?: boolean
           name: string
           organization: string
         }
         Update: {
           created_at?: string
+          icon?: string
           id?: string
+          is_default?: boolean
           name?: string
           organization?: string
         }
@@ -119,8 +222,10 @@ export type Database = {
       }
       tickets: {
         Row: {
+          assignee: string | null
           category: string
           created_at: string
+          creator: string
           description: string | null
           id: string
           name: string
@@ -129,8 +234,10 @@ export type Database = {
           type: string
         }
         Insert: {
+          assignee?: string | null
           category: string
           created_at?: string
+          creator?: string
           description?: string | null
           id?: string
           name: string
@@ -139,8 +246,10 @@ export type Database = {
           type: string
         }
         Update: {
+          assignee?: string | null
           category?: string
           created_at?: string
+          creator?: string
           description?: string | null
           id?: string
           name?: string
@@ -150,10 +259,24 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "tickets_assignee_fkey"
+            columns: ["assignee"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "tickets_category_fkey"
             columns: ["category"]
             isOneToOne: false
             referencedRelation: "ticket_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tickets_creator_fkey"
+            columns: ["creator"]
+            isOneToOne: false
+            referencedRelation: "users"
             referencedColumns: ["id"]
           },
           {
@@ -182,23 +305,33 @@ export type Database = {
       users: {
         Row: {
           created_at: string
+          department: string | null
           email: string
           id: string
           organization: string
         }
         Insert: {
           created_at?: string
+          department?: string | null
           email: string
           id?: string
           organization?: string
         }
         Update: {
           created_at?: string
+          department?: string | null
           email?: string
           id?: string
           organization?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "users_department_fkey"
+            columns: ["department"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "users_organization_fkey"
             columns: ["organization"]

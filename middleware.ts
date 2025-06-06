@@ -1,7 +1,11 @@
+import { supabaseMiddlewareClient } from '@/lib/clients/supabase/middleware'
+import OrganizationMiddleware from '@/lib/middlewares/organization-middleware'
 import { type NextRequest } from 'next/server'
 
 export async function middleware(request: NextRequest) {
-  return
+  const { response, user } = await supabaseMiddlewareClient(request)
+
+  return OrganizationMiddleware(request, response, user)
 }
 
 export const config = {

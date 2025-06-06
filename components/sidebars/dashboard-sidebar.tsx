@@ -45,7 +45,7 @@ export default function DashboardSidebar() {
   ]
 
   return (
-    <aside className='flex flex-col gap-4 border border-transparent p-4'>
+    <aside className='flex flex-col gap-4 border border-transparent px-4 py-5'>
       <Button size={'icon'}></Button>
       <div className='flex h-full flex-col justify-between'>
         <div className='space-y-1'>
@@ -78,10 +78,10 @@ function SidebarItem(item: SidebarItemProps) {
         <Link
           href={item.href}
           className={cn(
-            'flex size-8 items-center justify-center rounded-md border transition-all',
+            'flex size-8 items-center justify-center rounded-md transition-all',
             item.isActive
-              ? 'text-primary bg-background border-border shadow-xs'
-              : 'text-muted-foreground hover:bg-background hover:border-border border-transparent bg-transparent',
+              ? 'text-foreground bg-zinc-200'
+              : 'text-muted-foreground bg-transparent hover:bg-zinc-200',
           )}
         >
           {item.isActive ? (

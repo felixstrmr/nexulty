@@ -6,10 +6,12 @@ type Props = {
 
 export default function DashboardLayout({ children }: Props) {
   return (
-    <div className='flex size-full bg-zinc-100'>
+    <div className='flex size-full bg-zinc-50'>
       <DashboardSidebar />
-      <div className='bg-background size-full border-l shadow-xs'>
-        {children}
+      <div className='flex-1 py-1 pr-1'>
+        <div className='bg-background size-full rounded-lg border shadow-xs'>
+          {children}
+        </div>
       </div>
     </div>
   )

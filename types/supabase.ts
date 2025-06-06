@@ -158,6 +158,7 @@ export type Database = {
       }
       ticket_statuses: {
         Row: {
+          category: Database["public"]["Enums"]["ticket_status_types"]
           created_at: string
           icon: string
           id: string
@@ -166,6 +167,7 @@ export type Database = {
           organization: string
         }
         Insert: {
+          category?: Database["public"]["Enums"]["ticket_status_types"]
           created_at?: string
           icon: string
           id?: string
@@ -174,6 +176,7 @@ export type Database = {
           organization: string
         }
         Update: {
+          category?: Database["public"]["Enums"]["ticket_status_types"]
           created_at?: string
           icon?: string
           id?: string
@@ -352,7 +355,7 @@ export type Database = {
       }
     }
     Enums: {
-      [_ in never]: never
+      ticket_status_types: "resolved" | "unresolved" | "cancelled"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -467,6 +470,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      ticket_status_types: ["resolved", "unresolved", "cancelled"],
+    },
   },
 } as const

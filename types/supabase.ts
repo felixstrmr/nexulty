@@ -38,24 +38,73 @@ export type Database = {
           },
         ]
       }
+      group_users: {
+        Row: {
+          created_at: string
+          group: string
+          id: string
+          organization: string
+          user: string
+        }
+        Insert: {
+          created_at?: string
+          group: string
+          id?: string
+          organization: string
+          user: string
+        }
+        Update: {
+          created_at?: string
+          group?: string
+          id?: string
+          organization?: string
+          user?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_users_group_fkey"
+            columns: ["group"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "group_users_organization_fkey"
+            columns: ["organization"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "group_users_user_fkey"
+            columns: ["user"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       groups: {
         Row: {
           created_at: string
           id: string
           name: string
           organization: string
+          type: Database["public"]["Enums"]["group_types"]
         }
         Insert: {
           created_at?: string
           id?: string
           name: string
           organization: string
+          type: Database["public"]["Enums"]["group_types"]
         }
         Update: {
           created_at?: string
           id?: string
           name?: string
           organization?: string
+          type?: Database["public"]["Enums"]["group_types"]
         }
         Relationships: [
           {
@@ -152,6 +201,58 @@ export type Database = {
             columns: ["organization"]
             isOneToOne: false
             referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ticket_comments: {
+        Row: {
+          created_at: string
+          creator: string
+          id: string
+          is_internal: boolean
+          message: string
+          organization: string
+          ticket: string
+        }
+        Insert: {
+          created_at?: string
+          creator?: string
+          id?: string
+          is_internal: boolean
+          message: string
+          organization: string
+          ticket: string
+        }
+        Update: {
+          created_at?: string
+          creator?: string
+          id?: string
+          is_internal?: boolean
+          message?: string
+          organization?: string
+          ticket?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_comments_creator_fkey"
+            columns: ["creator"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ticket_comments_organization_fkey"
+            columns: ["organization"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ticket_comments_ticket_fkey"
+            columns: ["ticket"]
+            isOneToOne: false
+            referencedRelation: "tickets"
             referencedColumns: ["id"]
           },
         ]
@@ -309,23 +410,35 @@ export type Database = {
         Row: {
           created_at: string
           department: string | null
+          display_name: string | null
           email: string
+          first_name: string | null
           id: string
+          last_name: string | null
           organization: string
+          role: Database["public"]["Enums"]["user_roles"]
         }
         Insert: {
           created_at?: string
           department?: string | null
+          display_name?: string | null
           email: string
+          first_name?: string | null
           id?: string
+          last_name?: string | null
           organization?: string
+          role?: Database["public"]["Enums"]["user_roles"]
         }
         Update: {
           created_at?: string
           department?: string | null
+          display_name?: string | null
           email?: string
+          first_name?: string | null
           id?: string
+          last_name?: string | null
           organization?: string
+          role?: Database["public"]["Enums"]["user_roles"]
         }
         Relationships: [
           {
@@ -355,7 +468,9 @@ export type Database = {
       }
     }
     Enums: {
+      group_types: "internal" | "external"
       ticket_status_types: "resolved" | "unresolved" | "cancelled"
+      user_roles: "administrator" | "agent" | "customer"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -471,7 +586,9 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      group_types: ["internal", "external"],
       ticket_status_types: ["resolved", "unresolved", "cancelled"],
+      user_roles: ["administrator", "agent", "customer"],
     },
   },
 } as const

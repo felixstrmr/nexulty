@@ -1,5 +1,6 @@
 'use client'
 
+import RevalidateButton from '@/components/buttons/revalidate-button'
 import HouseIcon from '@/components/icons/house-icon'
 import SettingsIcon from '@/components/icons/settings-icon'
 import TicketCheckIcon from '@/components/icons/ticket-check-icon'
@@ -47,6 +48,7 @@ export default function DashboardSidebar() {
   return (
     <aside className='flex flex-col gap-4 border border-transparent px-4 py-5'>
       <Button size={'icon'}></Button>
+      <RevalidateButton />
       <div className='flex h-full flex-col justify-between'>
         <div className='space-y-1'>
           {itemsTop.map((item) => (

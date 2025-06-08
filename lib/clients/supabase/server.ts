@@ -15,17 +15,19 @@ export async function supabaseServerClient() {
           return cookieStore.getAll()
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            cookieStore.set(name, value, {
-              domain: `.${env.NEXT_PUBLIC_ROOT_DOMAIN}`,
-              secure: process.env.NODE_ENV === 'production',
-              sameSite: 'lax',
-              path: '/',
-              maxAge: 60 * 60 * 24 * 30,
-              httpOnly: true,
-              ...options
-            })
-          )
+          try {
+            cookiesToSet.forEach(({ name, value, options }) =>
+              cookieStore.set(name, value, {
+                domain: `.${env.NEXT_PUBLIC_ROOT_DOMAIN}`,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'lax',
+                path: '/',
+                maxAge: 60 * 60 * 24 * 30,
+                httpOnly: true,
+                ...options
+              })
+            )
+          } catch {}
         }
       }
     }

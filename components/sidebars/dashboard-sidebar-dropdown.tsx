@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Organization } from '@/types'
 import { cn } from '@/utils'
-import { ChevronsUpDown, ExternalLink } from 'lucide-react'
+import { ChevronsUpDown, ExternalLink, Settings } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
@@ -44,7 +44,10 @@ export default function DashboardSidebarDropdown({ organization }: Props) {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Settings</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Settings />
+          Settings
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

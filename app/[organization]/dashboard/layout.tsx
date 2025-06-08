@@ -1,5 +1,10 @@
 import DashboardSidebar from '@/components/sidebars/dashboard-sidebar'
 import { getDomain } from '@/utils'
+import { Metadata } from 'next/types'
+
+export const metadata: Metadata = {
+  title: 'Nexulty • Dashboard'
+}
 
 type Props = {
   children: React.ReactNode

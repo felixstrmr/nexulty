@@ -9,41 +9,59 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      groups: {
+      organizations: {
         Row: {
           created_at: string
-          created_by: string
+          domain: string
           id: string
           name: string
-          organization: string
-          type: Database["public"]["Enums"]["group_types"]
         }
         Insert: {
           created_at?: string
-          created_by?: string
+          domain: string
           id?: string
           name: string
-          organization: string
-          type: Database["public"]["Enums"]["group_types"]
         }
         Update: {
           created_at?: string
-          created_by?: string
+          domain?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      ticket_categories: {
+        Row: {
+          created_at: string
+          group: string | null
+          id: string
+          name: string
+          organization: string
+        }
+        Insert: {
+          created_at?: string
+          group?: string | null
+          id?: string
+          name: string
+          organization: string
+        }
+        Update: {
+          created_at?: string
+          group?: string | null
           id?: string
           name?: string
           organization?: string
-          type?: Database["public"]["Enums"]["group_types"]
         }
         Relationships: [
           {
-            foreignKeyName: "groups_created_by_fkey"
-            columns: ["created_by"]
+            foreignKeyName: "ticket_categories_group_fkey"
+            columns: ["group"]
             isOneToOne: false
-            referencedRelation: "users"
+            referencedRelation: "ticket_category_groups"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "groups_organization_fkey"
+            foreignKeyName: "ticket_categories_organization_fkey"
             columns: ["organization"]
             isOneToOne: false
             referencedRelation: "organizations"
@@ -51,34 +69,145 @@ export type Database = {
           },
         ]
       }
-      organizations: {
+      ticket_category_groups: {
         Row: {
           created_at: string
-          created_by: string
-          domain: string
           id: string
           name: string
+          organization: string
         }
         Insert: {
           created_at?: string
-          created_by?: string
-          domain: string
           id?: string
           name: string
+          organization: string
         }
         Update: {
           created_at?: string
-          created_by?: string
-          domain?: string
           id?: string
           name?: string
+          organization?: string
         }
         Relationships: [
           {
-            foreignKeyName: "organizations_created_by_fkey"
-            columns: ["created_by"]
+            foreignKeyName: "ticket_category_groups_organization_fkey"
+            columns: ["organization"]
             isOneToOne: false
-            referencedRelation: "users"
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ticket_priorities: {
+        Row: {
+          color: string
+          created_at: string
+          icon: string
+          id: string
+          is_default: boolean
+          name: string
+          order: number
+          organization: string
+        }
+        Insert: {
+          color: string
+          created_at?: string
+          icon: string
+          id?: string
+          is_default?: boolean
+          name: string
+          order: number
+          organization: string
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          icon?: string
+          id?: string
+          is_default?: boolean
+          name?: string
+          order?: number
+          organization?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_priorities_organization_fkey"
+            columns: ["organization"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ticket_statuses: {
+        Row: {
+          color: string
+          created_at: string
+          id: string
+          is_default: boolean
+          name: string
+          order: number
+          organization: string
+        }
+        Insert: {
+          color: string
+          created_at?: string
+          id?: string
+          is_default?: boolean
+          name: string
+          order: number
+          organization: string
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          id?: string
+          is_default?: boolean
+          name?: string
+          order?: number
+          organization?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_statuses_organization_fkey"
+            columns: ["organization"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ticket_types: {
+        Row: {
+          color: string
+          created_at: string
+          icon: string
+          id: string
+          name: string
+          organization: string
+        }
+        Insert: {
+          color: string
+          created_at?: string
+          icon: string
+          id?: string
+          name: string
+          organization: string
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          icon?: string
+          id?: string
+          name?: string
+          organization?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_types_organization_fkey"
+            columns: ["organization"]
+            isOneToOne: false
+            referencedRelation: "organizations"
             referencedColumns: ["id"]
           },
         ]
@@ -91,6 +220,9 @@ export type Database = {
           id: string
           name: string
           organization: string
+          priority: string
+          status: string
+          type: string
         }
         Insert: {
           created_at?: string
@@ -99,6 +231,9 @@ export type Database = {
           id?: string
           name: string
           organization: string
+          priority: string
+          status: string
+          type: string
         }
         Update: {
           created_at?: string
@@ -107,6 +242,9 @@ export type Database = {
           id?: string
           name?: string
           organization?: string
+          priority?: string
+          status?: string
+          type?: string
         }
         Relationships: [
           {
@@ -123,25 +261,55 @@ export type Database = {
             referencedRelation: "organizations"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "tickets_priority_fkey"
+            columns: ["priority"]
+            isOneToOne: false
+            referencedRelation: "ticket_priorities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tickets_status_fkey"
+            columns: ["status"]
+            isOneToOne: false
+            referencedRelation: "ticket_statuses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tickets_type_fkey"
+            columns: ["type"]
+            isOneToOne: false
+            referencedRelation: "ticket_types"
+            referencedColumns: ["id"]
+          },
         ]
       }
       users: {
         Row: {
           created_at: string
+          display_name: string | null
           email: string
+          first_name: string | null
           id: string
+          last_name: string | null
           organization: string
         }
         Insert: {
           created_at?: string
+          display_name?: string | null
           email: string
+          first_name?: string | null
           id?: string
+          last_name?: string | null
           organization?: string
         }
         Update: {
           created_at?: string
+          display_name?: string | null
           email?: string
+          first_name?: string | null
           id?: string
+          last_name?: string | null
           organization?: string
         }
         Relationships: [

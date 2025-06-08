@@ -1,5 +1,9 @@
 import { supabaseServerClient } from '@/lib/clients/supabase/server'
-import { getOrganizationQuery, getOrganizationUserQuery } from '@/queries'
+import {
+  getOrganizationQuery,
+  getOrganizationUserQuery,
+  getTicketsQuery
+} from '@/queries'
 import { unstable_cache } from 'next/cache'
 import { cache } from 'react'
 
@@ -34,6 +38,21 @@ export const getOrganization = cache(async (domain: string) => {
     ['organization', domain],
     {
       tags: [`organization-${domain}`],
+      revalidate: 60 * 60 * 24 // 24 hours
+    }
+  )()
+})
+
+export const getTickets = cache(async (domain: string) => {
+  const supabase = await supabaseServerClient()
+
+  return unstable_cache(
+    async () => {
+      return getTicketsQuery(supabase, domain)
+    },
+    ['tickets', domain],
+    {
+      tags: [`organization-${domain}`, `tickets-${domain}`],
       revalidate: 60 * 60 * 24 // 24 hours
     }
   )()

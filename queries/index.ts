@@ -7,7 +7,9 @@ export async function getOrganizationUserQuery(
 ) {
   const { data } = await supabase
     .from('users')
-    .select('*, organization:organizations!users_organization_fkey!inner(*)')
+    .select(
+      '*, organization:organizations!users_organization_fkey!inner(domain)'
+    )
     .eq('organization.domain', domain)
     .eq('id', userId)
     .maybeSingle()
@@ -22,6 +24,16 @@ export async function getOrganizationQuery(supabase: Supabase, domain: string) {
     .select('*')
     .eq('domain', domain)
     .maybeSingle()
+    .throwOnError()
+
+  return data
+}
+
+export async function getTicketsQuery(supabase: Supabase, domain: string) {
+  const { data } = await supabase
+    .from('tickets')
+    .select('*, organization:organizations!inner(domain)')
+    .eq('organization.domain', domain)
     .throwOnError()
 
   return data

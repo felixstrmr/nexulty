@@ -19,42 +19,49 @@ export const organizationSetupTask = schemaTask({
         name: 'New',
         color: '#52525b',
         is_default: true,
+        type: 'unresolved',
         order: 0
       },
       {
         name: 'Assigned',
         color: '#2563eb',
         is_default: false,
+        type: 'unresolved',
         order: 1
       },
       {
         name: 'In Progress',
         color: '#9333ea',
         is_default: false,
+        type: 'unresolved',
         order: 2
       },
       {
         name: 'Pending',
         color: '#ca8a04',
         is_default: false,
+        type: 'unresolved',
         order: 3
       },
       {
         name: 'Resolved',
         color: '#16a34a',
         is_default: false,
+        type: 'resolved',
         order: 4
       },
       {
         name: 'Closed',
         color: '#d97706',
         is_default: false,
+        type: 'resolved',
         order: 5
       },
       {
         name: 'Cancelled',
         color: '#dc2626',
         is_default: false,
+        type: 'cancelled',
         order: 6
       }
     ]
@@ -141,7 +148,8 @@ export const organizationSetupTask = schemaTask({
     const ticketStatusesPromise = supabase.from('ticket_statuses').insert(
       defaultTicketStatuses.map((status) => ({
         ...status,
-        organization: payload.organizationId
+        organization: payload.organizationId,
+        type: status.type as 'unresolved' | 'resolved' | 'cancelled'
       }))
     )
 

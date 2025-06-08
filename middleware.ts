@@ -1,8 +1,23 @@
 import { supabaseMiddlewareClient } from '@/lib/clients/supabase/middleware'
+import { env } from '@/lib/env/client'
+import HomeMiddleware from '@/lib/middlewares/home-middleware'
+import OrganizationMiddleware from '@/lib/middlewares/organization-middleware'
 import { type NextRequest } from 'next/server'
 
 export async function middleware(request: NextRequest) {
-  const { response, user, supabase } = await supabaseMiddlewareClient(request)
+  const host = request.headers.get('host')!
+
+  const isHomeRoute =
+    host === env.NEXT_PUBLIC_ROOT_DOMAIN ||
+    host === `www.${env.NEXT_PUBLIC_ROOT_DOMAIN}`
+
+  if (isHomeRoute) {
+    return HomeMiddleware(request)
+  }
+
+  const { response, user } = await supabaseMiddlewareClient(request)
+
+  return OrganizationMiddleware(request, response, user)
 }
 
 export const config = {

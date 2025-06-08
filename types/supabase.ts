@@ -148,6 +148,7 @@ export type Database = {
           name: string
           order: number
           organization: string
+          type: Database["public"]["Enums"]["ticket_status_types"]
         }
         Insert: {
           color: string
@@ -157,6 +158,7 @@ export type Database = {
           name: string
           order: number
           organization: string
+          type: Database["public"]["Enums"]["ticket_status_types"]
         }
         Update: {
           color?: string
@@ -166,6 +168,7 @@ export type Database = {
           name?: string
           order?: number
           organization?: string
+          type?: Database["public"]["Enums"]["ticket_status_types"]
         }
         Relationships: [
           {
@@ -214,6 +217,7 @@ export type Database = {
       }
       tickets: {
         Row: {
+          assigned_to: string | null
           created_at: string
           created_by: string
           description: string | null
@@ -225,6 +229,7 @@ export type Database = {
           type: string
         }
         Insert: {
+          assigned_to?: string | null
           created_at?: string
           created_by?: string
           description?: string | null
@@ -236,6 +241,7 @@ export type Database = {
           type: string
         }
         Update: {
+          assigned_to?: string | null
           created_at?: string
           created_by?: string
           description?: string | null
@@ -247,6 +253,13 @@ export type Database = {
           type?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "tickets_assigned_to_fkey"
+            columns: ["assigned_to"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "tickets_created_by_fkey"
             columns: ["created_by"]
@@ -334,6 +347,7 @@ export type Database = {
     }
     Enums: {
       group_types: "internal" | "external"
+      ticket_status_types: "unresolved" | "resolved" | "cancelled"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -450,6 +464,7 @@ export const Constants = {
   public: {
     Enums: {
       group_types: ["internal", "external"],
+      ticket_status_types: ["unresolved", "resolved", "cancelled"],
     },
   },
 } as const

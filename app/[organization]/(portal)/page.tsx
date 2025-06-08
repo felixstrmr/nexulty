@@ -1,5 +1,5 @@
-import { columns } from '@/components/tables/tickets/portal/columns'
-import { DataTable } from '@/components/tables/tickets/portal/data-table'
+import PortalTicketsTable from '@/components/tables/tickets/portal/portal-tickets-table'
+import TicketStatusTypesTabs from '@/components/tabs/ticket-status-types-tabs'
 import { buttonVariants } from '@/components/ui/button'
 import { getOrganizationUser, getTickets } from '@/queries/cached'
 import { getDomain } from '@/utils'
@@ -24,7 +24,7 @@ export default async function Page({ params }: Props) {
   }
 
   return (
-    <div className='mx-auto flex w-full max-w-5xl flex-col gap-4 pt-8'>
+    <div className='mx-auto flex w-full max-w-5xl flex-col gap-8 pt-8'>
       <div className='flex items-center justify-between'>
         <div>
           <h1 className='text-2xl font-semibold tracking-tight'>
@@ -35,13 +35,18 @@ export default async function Page({ params }: Props) {
           </p>
         </div>
         <Link
-          href={'/create'}
+          href={'/tickets/create'}
           className={buttonVariants({ variant: 'default' })}
         >
           Create Ticket
         </Link>
       </div>
-      <DataTable columns={columns} data={tickets} />
+      <div className='flex flex-col gap-4'>
+        <div>
+          <TicketStatusTypesTabs />
+        </div>
+        <PortalTicketsTable tickets={tickets} />
+      </div>
     </div>
   )
 }

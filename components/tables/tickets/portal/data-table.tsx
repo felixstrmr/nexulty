@@ -14,6 +14,7 @@ import {
   getCoreRowModel,
   useReactTable
 } from '@tanstack/react-table'
+import { useRouter } from 'next/navigation'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -24,6 +25,8 @@ export function DataTable<TData, TValue>({
   columns,
   data
 }: DataTableProps<TData, TValue>) {
+  const router = useRouter()
+
   const table = useReactTable({
     data,
     columns,
@@ -57,6 +60,11 @@ export function DataTable<TData, TValue>({
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && 'selected'}
+                onClick={() => {
+                  // @ts-expect-error - id is not defined in the type
+                  router.push(`/tickets/${row.original.id}`)
+                }}
+                className='cursor-pointer'
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>

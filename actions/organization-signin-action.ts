@@ -3,7 +3,7 @@
 import { actionClient } from '@/lib/clients/action-client'
 import { supabaseServerClient } from '@/lib/clients/supabase/server'
 import { organizationSigninSchema } from '@/schemas/organization-signin-schema'
-import { revalidateTag } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 
 export const organizationSigninAction = actionClient
   .metadata({
@@ -23,4 +23,7 @@ export const organizationSigninAction = actionClient
     if (error) throw error
 
     revalidateTag(`organization-user-${data.user.id}`)
+
+    // temporary fix for the layout revalidation
+    revalidatePath('/', 'layout')
   })

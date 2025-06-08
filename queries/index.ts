@@ -32,7 +32,9 @@ export async function getOrganizationQuery(supabase: Supabase, domain: string) {
 export async function getTicketsQuery(supabase: Supabase, domain: string) {
   const { data } = await supabase
     .from('tickets')
-    .select('*, organization:organizations!inner(domain)')
+    .select(
+      '*, organization:organizations!inner(domain), status:ticket_statuses(*)'
+    )
     .eq('organization.domain', domain)
     .throwOnError()
 

@@ -9,9 +9,9 @@ export default function PortalNavbarNavigation() {
 
   const items = [
     {
-      name: 'Dashboard',
+      name: 'Tickets',
       href: '/',
-      isActive: segment === null
+      isActive: segment === null || segment === 'tickets'
     },
     {
       name: 'Live Chat',
@@ -40,7 +40,7 @@ function NavigationItem(item: NavigationItemProps) {
     <Link
       href={item.href}
       className={cn(
-        'flex h-8 items-center rounded-md px-2 text-sm',
+        'flex h-8 items-center rounded-md px-2 text-sm transition-colors',
         item.isActive
           ? 'text-foreground bg-zinc-200/60'
           : 'text-muted-foreground hover:bg-zinc-200/60'

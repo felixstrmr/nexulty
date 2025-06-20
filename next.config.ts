@@ -1,7 +1,10 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
+
+import '@/lib/env'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  devIndicators: false,
+  allowedDevOrigins: ['localhost.com', '*.localhost.com'],
+}
 
-export default nextConfig;
+export default nextConfig

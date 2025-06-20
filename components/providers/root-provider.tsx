@@ -8,7 +8,7 @@ export default function RootProvider({ children }: Props) {
   return (
     <>
       {children}
-      <Toaster position="bottom-center" />
+      <Toaster position='bottom-center' />
     </>
   )
 }

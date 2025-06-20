@@ -14,7 +14,7 @@ export default function Page() {
         </div>
         <div className='px-8 py-4'>
           <p className='text-muted-foreground text-sm'>
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <Link href={'/signup'} className='text-foreground hover:underline'>
               Sign up
             </Link>

@@ -23,7 +23,15 @@ export async function supabaseMiddlewareClient(request: NextRequest) {
             request,
           })
           cookiesToSet.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, options),
+            response.cookies.set(name, value, {
+              domain: `.${env.NEXT_PUBLIC_ROOT_DOMAIN}`,
+              secure: env.NODE_ENV === 'production',
+              sameSite: 'lax',
+              path: '/',
+              maxAge: 60 * 60 * 24 * 30,
+              httpOnly: true,
+              ...options,
+            }),
           )
         },
       },

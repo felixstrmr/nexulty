@@ -15,11 +15,14 @@ import { env } from '@/lib/env'
 import { createOrganizationSchema } from '@/lib/schemas/create-organization-schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useAction } from 'next-safe-action/hooks'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
 export default function CreateOrganizationForm() {
+  const router = useRouter()
+
   const form = useForm<z.infer<typeof createOrganizationSchema>>({
     resolver: zodResolver(createOrganizationSchema),
     defaultValues: {
@@ -34,10 +37,15 @@ export default function CreateOrganizationForm() {
         id: 'create-organization-form',
       })
     },
-    onSuccess: () => {
+    onSuccess: ({ data }) => {
       toast.success('Organization created successfully', {
         id: 'create-organization-form',
       })
+
+      const protocol = env.NODE_ENV === 'production' ? 'https' : 'http'
+      router.push(
+        `${protocol}://${data?.domain}.${env.NEXT_PUBLIC_ROOT_DOMAIN}`,
+      )
     },
     onError: ({ error }) => {
       toast.error(error.serverError, {

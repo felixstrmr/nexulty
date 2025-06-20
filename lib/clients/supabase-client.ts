@@ -18,6 +18,12 @@ export async function supabaseClient() {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, {
+                domain: `.${env.NEXT_PUBLIC_ROOT_DOMAIN}`,
+                secure: env.NODE_ENV === 'production',
+                sameSite: 'lax',
+                path: '/',
+                maxAge: 60 * 60 * 24 * 30,
+                httpOnly: true,
                 ...options,
               }),
             )

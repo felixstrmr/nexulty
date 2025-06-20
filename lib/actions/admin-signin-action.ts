@@ -3,6 +3,7 @@
 import { actionClient } from '@/lib/clients/action-client'
 import { supabaseClient } from '@/lib/clients/supabase-client'
 import { adminSigninSchema } from '@/lib/schemas/admin-signin-schema'
+import { revalidateTag } from 'next/cache'
 
 export const adminSigninAction = actionClient
   .metadata({
@@ -14,10 +15,12 @@ export const adminSigninAction = actionClient
 
     const supabase = await supabaseClient()
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     })
 
     if (error) throw error
+
+    revalidateTag(`user-${data.user.id}`)
   })

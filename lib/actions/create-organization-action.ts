@@ -3,6 +3,7 @@
 import { actionClient } from '@/lib/clients/action-client'
 import { supabaseClient } from '@/lib/clients/supabase-client'
 import { createOrganizationSchema } from '@/lib/schemas/create-organization-schema'
+import { revalidateTag } from 'next/cache'
 
 export const createOrganizationAction = actionClient
   .metadata({
@@ -14,14 +15,15 @@ export const createOrganizationAction = actionClient
 
     const supabase = await supabaseClient()
 
-    const { data } = await supabase
+    const organizationId = crypto.randomUUID()
+
+    await supabase
       .from('organizations')
       .insert({
+        id: organizationId,
         name,
         domain,
       })
-      .select()
-      .single()
       .throwOnError()
 
     const {
@@ -33,8 +35,14 @@ export const createOrganizationAction = actionClient
     await supabase
       .from('users')
       .update({
-        organization: data.id,
+        organization: organizationId,
       })
       .eq('id', user.id)
       .throwOnError()
+
+    revalidateTag(`user-${user.id}`)
+
+    return {
+      domain,
+    }
   })

@@ -8,7 +8,7 @@ type Props = {
 export default async function DashboardLayout({ children }: Props) {
   const user = await getUser()
 
-  if (!user?.organization) {
+  if (user && !user.organization) {
     return redirect('/setup')
   }
 

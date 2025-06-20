@@ -15,20 +15,78 @@ export type Database = {
           domain: string
           id: string
           name: string
+          prefix: string | null
         }
         Insert: {
           created_at?: string
           domain: string
           id?: string
           name: string
+          prefix?: string | null
         }
         Update: {
           created_at?: string
           domain?: string
           id?: string
           name?: string
+          prefix?: string | null
         }
         Relationships: []
+      }
+      tickets: {
+        Row: {
+          assigned_to: string | null
+          created_at: string
+          created_by: string
+          description: string | null
+          id: string
+          number: string
+          organization: string
+          title: string
+        }
+        Insert: {
+          assigned_to?: string | null
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          id?: string
+          number: string
+          organization: string
+          title: string
+        }
+        Update: {
+          assigned_to?: string | null
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          id?: string
+          number?: string
+          organization?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tickets_assigned_to_fkey"
+            columns: ["assigned_to"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tickets_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tickets_organization_fkey"
+            columns: ["organization"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       users: {
         Row: {
@@ -36,18 +94,21 @@ export type Database = {
           email: string
           id: string
           organization: string | null
+          role: Database["public"]["Enums"]["user_roles"]
         }
         Insert: {
           created_at?: string
           email: string
           id: string
           organization?: string | null
+          role?: Database["public"]["Enums"]["user_roles"]
         }
         Update: {
           created_at?: string
           email?: string
           id?: string
           organization?: string | null
+          role?: Database["public"]["Enums"]["user_roles"]
         }
         Relationships: [
           {
@@ -64,13 +125,17 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      is_organization_agent: {
+        Args: { userid: string; workspaceid: string }
+        Returns: boolean
+      }
       is_organization_user: {
         Args: { userid: string; workspaceid: string }
         Returns: boolean
       }
     }
     Enums: {
-      [_ in never]: never
+      user_roles: "administrator" | "agent" | "customer"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -185,6 +250,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      user_roles: ["administrator", "agent", "customer"],
+    },
   },
 } as const

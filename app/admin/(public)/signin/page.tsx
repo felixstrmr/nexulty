@@ -4,8 +4,8 @@ import Link from 'next/link'
 export default function Page() {
   return (
     <div className='flex size-full items-center justify-center'>
-      <div className='bg-muted rounded-xl p-1'>
-        <div className='bg-background rounded-lg border p-8'>
+      <div className='bg-muted rounded-2xl p-1'>
+        <div className='bg-background rounded-xl border p-8 shadow-xs'>
           <div className='mb-8 flex items-center gap-2'>
             <div className='bg-primary size-8 rounded-md' />
             <h2 className='text-2xl font-semibold tracking-tight'>Admin</h2>

@@ -11,25 +11,28 @@ export type Database = {
     Tables: {
       organizations: {
         Row: {
+          counter: number
           created_at: string
           domain: string
           id: string
           name: string
-          prefix: string | null
+          prefix: string
         }
         Insert: {
+          counter?: number
           created_at?: string
           domain: string
           id?: string
           name: string
-          prefix?: string | null
+          prefix: string
         }
         Update: {
+          counter?: number
           created_at?: string
           domain?: string
           id?: string
           name?: string
-          prefix?: string | null
+          prefix?: string
         }
         Relationships: []
       }
@@ -92,21 +95,27 @@ export type Database = {
         Row: {
           created_at: string
           email: string
+          first_name: string | null
           id: string
+          last_name: string | null
           organization: string | null
           role: Database["public"]["Enums"]["user_roles"]
         }
         Insert: {
           created_at?: string
           email: string
+          first_name?: string | null
           id: string
+          last_name?: string | null
           organization?: string | null
           role?: Database["public"]["Enums"]["user_roles"]
         }
         Update: {
           created_at?: string
           email?: string
+          first_name?: string | null
           id?: string
+          last_name?: string | null
           organization?: string | null
           role?: Database["public"]["Enums"]["user_roles"]
         }

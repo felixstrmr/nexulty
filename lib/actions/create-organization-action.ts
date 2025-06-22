@@ -1,17 +1,18 @@
 'use server'
 
-import { actionClient } from '@/lib/clients/action-client'
+import { authActionClient } from '@/lib/clients/action-client'
 import { supabaseClient } from '@/lib/clients/supabase-client'
 import { createOrganizationSchema } from '@/lib/schemas/create-organization-schema'
 import { revalidateTag } from 'next/cache'
 
-export const createOrganizationAction = actionClient
+export const createOrganizationAction = authActionClient
   .metadata({
     name: 'create-organization-action',
   })
   .inputSchema(createOrganizationSchema)
-  .action(async ({ parsedInput }) => {
+  .action(async ({ parsedInput, ctx }) => {
     const { name, domain } = parsedInput
+    const { user } = ctx
 
     const supabase = await supabaseClient()
 
@@ -23,14 +24,9 @@ export const createOrganizationAction = actionClient
         id: organizationId,
         name,
         domain,
+        prefix: 'org',
       })
       .throwOnError()
-
-    const {
-      data: { user },
-    } = await supabase.auth.getUser()
-
-    if (!user?.id) throw new Error('User not found')
 
     await supabase
       .from('users')

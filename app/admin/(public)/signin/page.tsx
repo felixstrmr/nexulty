@@ -1,4 +1,5 @@
 import AdminSigninForm from '@/components/forms/admin-signin-form'
+import { NexultyIcon } from '@/components/icons/nexulty-icon'
 import Link from 'next/link'
 
 export default function Page() {
@@ -7,7 +8,7 @@ export default function Page() {
       <div className='bg-muted rounded-2xl p-1'>
         <div className='bg-background rounded-xl border p-8 shadow-xs'>
           <div className='mb-8 flex items-center gap-2'>
-            <div className='bg-primary size-8 rounded-md' />
+            <NexultyIcon className='size-8' />
             <h2 className='text-2xl font-semibold tracking-tight'>Admin</h2>
           </div>
           <AdminSigninForm />

@@ -3,7 +3,7 @@
 import { actionClient } from '@/lib/clients/action-client'
 import { supabaseClient } from '@/lib/clients/supabase-client'
 import { adminSigninSchema } from '@/lib/schemas/admin-signin-schema'
-import { revalidateTag } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 
 export const adminSigninAction = actionClient
   .metadata({
@@ -23,4 +23,7 @@ export const adminSigninAction = actionClient
     if (error) throw error
 
     revalidateTag(`user-${data.user.id}`)
+
+    // temp
+    revalidatePath('/', 'layout')
   })

@@ -20,8 +20,25 @@ export async function getTicketCategoriesQuery(
     .select(
       `
       *,
-      organization!inner(domain),
-      group:ticket_category_groups(id, name)
+      organization!inner(domain)
+    `,
+    )
+    .eq('organization.domain', domain)
+    .throwOnError()
+
+  return data
+}
+
+export async function getTicketCategoryGroupsQuery(
+  supabase: Supabase,
+  domain: string,
+) {
+  const { data } = await supabase
+    .from('ticket_category_groups')
+    .select(
+      `
+      *,
+      organization!inner(domain)
     `,
     )
     .eq('organization.domain', domain)

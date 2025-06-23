@@ -1,5 +1,4 @@
-import RootProvider from '@/components/providers/root-provider'
-import { ThemeProvider } from '@/components/providers/theme-provider'
+import Providers from '@/components/providers'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import { Metadata } from 'next/types'
@@ -23,11 +22,9 @@ export default function RootLayout({ children }: Props) {
       className={`${GeistSans.variable} ${GeistMono.variable}`}
     >
       <body>
-        <ThemeProvider>
-          <RootProvider>
-            <main className='h-screen w-screen'>{children}</main>
-          </RootProvider>
-        </ThemeProvider>
+        <Providers>
+          <main className='h-screen w-screen'>{children}</main>
+        </Providers>
       </body>
     </html>
   )

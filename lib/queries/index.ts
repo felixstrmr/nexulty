@@ -10,3 +10,22 @@ export async function getUserQuery(supabase: Supabase, userId: string) {
 
   return data
 }
+
+export async function getTicketCategoriesQuery(
+  supabase: Supabase,
+  domain: string,
+) {
+  const { data } = await supabase
+    .from('ticket_categories')
+    .select(
+      `
+      *,
+      organization!inner(domain),
+      group:ticket_category_groups(id, name)
+    `,
+    )
+    .eq('organization.domain', domain)
+    .throwOnError()
+
+  return data
+}

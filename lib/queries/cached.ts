@@ -1,5 +1,5 @@
 import { supabaseClient } from '@/lib/clients/supabase-client'
-import { getUserQuery } from '@/lib/queries'
+import { getTicketCategoriesQuery, getUserQuery } from '@/lib/queries'
 import { unstable_cache } from 'next/cache'
 import { cache } from 'react'
 
@@ -19,6 +19,21 @@ export const getUser = cache(async () => {
     ['user', user.id],
     {
       tags: [`user-${user.id}`],
+      revalidate: 60 * 60 * 24, // 24 hours
+    },
+  )()
+})
+
+export const getTicketCategories = cache(async (domain: string) => {
+  const supabase = await supabaseClient()
+
+  return unstable_cache(
+    async () => {
+      return getTicketCategoriesQuery(supabase, domain)
+    },
+    ['ticket-categories', domain],
+    {
+      tags: [`ticket-categories-${domain}`],
       revalidate: 60 * 60 * 24, // 24 hours
     },
   )()

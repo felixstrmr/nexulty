@@ -22,44 +22,285 @@ export const setupOrganizationTask = schemaTask({
     const incidentRequestId = randomUUID()
     const problemRequestId = randomUUID()
 
+    const hardwareGroupId = randomUUID()
+    const softwareGroupId = randomUUID()
+    const networkGroupId = randomUUID()
+    const accessGroupId = randomUUID()
+    const facilitiesGroupId = randomUUID()
+
     const defaultTicketTypes = [
       {
+        id: serviceRequestId,
         name: 'Service Request',
+        organization: organizationId,
       },
       {
+        id: changeRequestId,
         name: 'Change Request',
+        organization: organizationId,
       },
       {
+        id: incidentRequestId,
         name: 'Incident',
+        organization: organizationId,
       },
       {
+        id: problemRequestId,
         name: 'Problem',
+        organization: organizationId,
+      },
+    ]
+
+    const defaultTicketStatuses = [
+      {
+        name: 'Open',
+        organization: organizationId,
+      },
+      {
+        name: 'In Progress',
+        organization: organizationId,
+      },
+      {
+        name: 'Pending',
+        organization: organizationId,
+      },
+      {
+        name: 'On Hold',
+        organization: organizationId,
+      },
+      {
+        name: 'Resolved',
+        organization: organizationId,
+      },
+      {
+        name: 'Closed',
+        organization: organizationId,
+      },
+      {
+        name: 'Cancelled',
+        organization: organizationId,
+      },
+    ]
+
+    const defaultTicketCategoryGroups = [
+      {
+        id: hardwareGroupId,
+        name: 'Hardware',
+        organization: organizationId,
+      },
+      {
+        id: softwareGroupId,
+        name: 'Software',
+        organization: organizationId,
+      },
+      {
+        id: networkGroupId,
+        name: 'Network & Connectivity',
+        organization: organizationId,
+      },
+      {
+        id: accessGroupId,
+        name: 'Access & Security',
+        organization: organizationId,
+      },
+      {
+        id: facilitiesGroupId,
+        name: 'Facilities & Environment',
+        organization: organizationId,
       },
     ]
 
     const defaultTicketCategories = [
       {
-        name: 'Hardware',
+        name: 'Desktop Computer',
         type: serviceRequestId,
+        group: hardwareGroupId,
+        organization: organizationId,
       },
       {
-        name: 'Software',
+        name: 'Laptop',
+        type: serviceRequestId,
+        group: hardwareGroupId,
+        organization: organizationId,
       },
       {
-        name: 'Network',
+        name: 'Monitor',
+        type: serviceRequestId,
+        group: hardwareGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Printer',
+        type: incidentRequestId,
+        group: hardwareGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Mobile Device',
+        type: serviceRequestId,
+        group: hardwareGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Server Hardware',
+        type: incidentRequestId,
+        group: hardwareGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Operating System',
+        type: incidentRequestId,
+        group: softwareGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Microsoft Office',
+        type: serviceRequestId,
+        group: softwareGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Business Application',
+        type: serviceRequestId,
+        group: softwareGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Antivirus Software',
+        type: incidentRequestId,
+        group: softwareGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Software Installation',
+        type: serviceRequestId,
+        group: softwareGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Software License',
+        type: serviceRequestId,
+        group: softwareGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Internet Connection',
+        type: incidentRequestId,
+        group: networkGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'WiFi Access',
+        type: incidentRequestId,
+        group: networkGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'VPN Access',
+        type: serviceRequestId,
+        group: networkGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Network Drive',
+        type: serviceRequestId,
+        group: networkGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Email Issues',
+        type: incidentRequestId,
+        group: networkGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Network Equipment',
+        type: incidentRequestId,
+        group: networkGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Account Creation',
+        type: serviceRequestId,
+        group: accessGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Password Reset',
+        type: serviceRequestId,
+        group: accessGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Access Rights',
+        type: serviceRequestId,
+        group: accessGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Security Incident',
+        type: incidentRequestId,
+        group: accessGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Two-Factor Authentication',
+        type: serviceRequestId,
+        group: accessGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Data Backup',
+        type: serviceRequestId,
+        group: accessGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Office Equipment',
+        type: serviceRequestId,
+        group: facilitiesGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Workspace Setup',
+        type: serviceRequestId,
+        group: facilitiesGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Power & UPS',
+        type: incidentRequestId,
+        group: facilitiesGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'HVAC Issues',
+        type: incidentRequestId,
+        group: facilitiesGroupId,
+        organization: organizationId,
+      },
+      {
+        name: 'Physical Security',
+        type: incidentRequestId,
+        group: facilitiesGroupId,
+        organization: organizationId,
       },
     ]
 
-    const defaultTicketPromise = supabase
-      .from('ticket_types')
-      .insert(
-        defaultTicketTypes.map((ticketType) => ({
-          ...ticketType,
-          organization: organizationId,
-        })),
-      )
-      .throwOnError()
-
-    await Promise.all([defaultTicketPromise])
+    await Promise.all([
+      supabase.from('ticket_types').insert(defaultTicketTypes).throwOnError(),
+      supabase
+        .from('ticket_statuses')
+        .insert(defaultTicketStatuses)
+        .throwOnError(),
+      supabase
+        .from('ticket_category_groups')
+        .insert(defaultTicketCategoryGroups)
+        .throwOnError(),
+      supabase
+        .from('ticket_categories')
+        .insert(defaultTicketCategories)
+        .throwOnError(),
+    ])
   },
 })

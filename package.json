@@ -19,6 +19,7 @@
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "2.49.8",
     "@t3-oss/env-nextjs": "^0.13.8",
+    "@trigger.dev/sdk": "^3.3.17",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "geist": "^1.4.2",
@@ -36,6 +37,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@trigger.dev/build": "^3.3.17",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

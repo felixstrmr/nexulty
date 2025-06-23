@@ -9,7 +9,7 @@ export default function PortalNavbarNavigation() {
 
   const items = [
     {
-      name: 'Home',
+      name: 'Dashboard',
       href: '/',
       isActive: segment === null,
     },
@@ -17,6 +17,11 @@ export default function PortalNavbarNavigation() {
       name: 'Tickets',
       href: '/tickets',
       isActive: segment === 'tickets',
+    },
+    {
+      name: 'Knowledge Base',
+      href: '/knowledge-base',
+      isActive: segment === 'knowledge-base',
     },
     {
       name: 'Settings',

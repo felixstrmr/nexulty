@@ -25,11 +25,10 @@ export const getUser = cache(async () => {
     ['user', user.id],
     {
       tags: [`user-${user.id}`],
-      revalidate: 60 * 60 * 24, // 24 hours
+      revalidate: 60 * 5, // 5 minutes
     },
   )()
 })
-
 export const getTicketCategories = cache(async (domain: string) => {
   const supabase = await supabaseClient()
 

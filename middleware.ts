@@ -8,19 +8,16 @@ import { type NextRequest } from 'next/server'
 export async function middleware(request: NextRequest) {
   const host = request.headers.get('host')!
 
-  const isHomeRoute =
+  if (
     host === `${env.NEXT_PUBLIC_ROOT_DOMAIN}` ||
     host === `www.${env.NEXT_PUBLIC_ROOT_DOMAIN}`
-
-  if (isHomeRoute) {
+  ) {
     return HomeMiddleware(request)
   }
 
   const { response, user } = await supabaseMiddlewareClient(request)
 
-  const isAdminRoute = host === `admin.${env.NEXT_PUBLIC_ROOT_DOMAIN}`
-
-  if (isAdminRoute) {
+  if (host === `admin.${env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
     return AdminMiddleware(request, response, user)
   }
 

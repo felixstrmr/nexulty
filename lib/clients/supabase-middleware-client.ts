@@ -28,7 +28,7 @@ export async function supabaseMiddlewareClient(request: NextRequest) {
               secure: env.NODE_ENV === 'production',
               sameSite: 'lax',
               path: '/',
-              maxAge: 60 * 60 * 24 * 30,
+              maxAge: 60 * 60 * 24 * 7, // 7 days
               httpOnly: true,
               ...options,
             }),

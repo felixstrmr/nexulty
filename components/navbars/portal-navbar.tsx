@@ -2,7 +2,7 @@ import PortalUserDropdown from '@/components/dropdowns/portal-user-dropdown'
 import { NexultyIcon } from '@/components/icons/nexulty-icon'
 import PortalNavbarNavigation from '@/components/navbars/portal-navbar-navigation'
 import { Separator } from '@/components/ui/separator'
-import { getUser } from '@/lib/queries/cached'
+import { getUser } from '@/queries/cached'
 
 type Props = {
   domain: string

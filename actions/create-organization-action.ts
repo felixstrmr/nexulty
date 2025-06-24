@@ -2,7 +2,7 @@
 
 import { authActionClient } from '@/lib/clients/action-client'
 import { supabaseClient } from '@/lib/clients/supabase-client'
-import { createOrganizationSchema } from '@/lib/schemas/create-organization-schema'
+import { createOrganizationSchema } from '@/schemas/create-organization-schema'
 import { revalidateTag } from 'next/cache'
 
 export const createOrganizationAction = authActionClient

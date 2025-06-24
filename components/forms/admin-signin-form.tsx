@@ -1,5 +1,6 @@
 'use client'
 
+import { adminSigninAction } from '@/actions/admin-signin-action'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -10,8 +11,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { adminSigninAction } from '@/lib/actions/admin-signin-action'
-import { adminSigninSchema } from '@/lib/schemas/admin-signin-schema'
+import { adminSigninSchema } from '@/schemas/admin-signin-schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useAction } from 'next-safe-action/hooks'
 import { useRouter } from 'next/navigation'

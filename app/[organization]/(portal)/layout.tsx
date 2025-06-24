@@ -1,5 +1,5 @@
 import PortalNavbar from '@/components/navbars/portal-navbar'
-import { getDomainFromOrganization } from '@/lib/utils'
+import { getDomainFromOrganization } from '@/utils'
 
 type Props = {
   children: React.ReactNode

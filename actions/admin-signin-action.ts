@@ -2,7 +2,7 @@
 
 import { actionClient } from '@/lib/clients/action-client'
 import { supabaseClient } from '@/lib/clients/supabase-client'
-import { adminSigninSchema } from '@/lib/schemas/admin-signin-schema'
+import { adminSigninSchema } from '@/schemas/admin-signin-schema'
 import { revalidatePath, revalidateTag } from 'next/cache'
 
 export const adminSigninAction = actionClient

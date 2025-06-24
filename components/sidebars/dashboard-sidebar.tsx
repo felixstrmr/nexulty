@@ -7,7 +7,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import { cn } from '@/lib/utils'
+import { cn } from '@/utils'
 import { Cog, House, LucideIcon, Ticket } from 'lucide-react'
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'

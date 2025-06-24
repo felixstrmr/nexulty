@@ -3,7 +3,7 @@ import {
   AvatarImage,
   Avatar as AvatarPrimitive,
 } from '@/components/ui/avatar'
-import { cn } from '@/lib/utils'
+import { cn } from '@/utils'
 
 type Props = {
   value: string

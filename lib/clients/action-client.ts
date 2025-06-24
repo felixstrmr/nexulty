@@ -1,5 +1,5 @@
-import { getUser } from '@/lib/queries/cached'
-import { getDomainFromOrganization } from '@/lib/utils'
+import { getUser } from '@/queries/cached'
+import { getDomainFromOrganization } from '@/utils'
 import { createSafeActionClient } from 'next-safe-action'
 import { headers } from 'next/headers'
 import { z } from 'zod'

@@ -2,8 +2,10 @@ import { supabaseClient } from '@/lib/clients/supabase-client'
 import {
   getTicketCategoriesQuery,
   getTicketCategoryGroupsQuery,
+  getTicketQuery,
+  getTicketsQuery,
   getUserQuery,
-} from '@/lib/queries'
+} from '@/queries'
 import { unstable_cache } from 'next/cache'
 import { cache } from 'react'
 
@@ -53,6 +55,36 @@ export const getTicketCategoryGroups = cache(async (domain: string) => {
     ['ticket-category-groups', domain],
     {
       tags: [`ticket-category-groups-${domain}`],
+      revalidate: 60 * 60 * 24, // 24 hours
+    },
+  )()
+})
+
+export const getTicket = cache(async (domain: string, ticketId: string) => {
+  const supabase = await supabaseClient()
+
+  return unstable_cache(
+    async () => {
+      return getTicketQuery(supabase, domain, ticketId)
+    },
+    ['ticket', ticketId],
+    {
+      tags: [`ticket-${ticketId}`],
+      revalidate: 60 * 60 * 24, // 24 hours
+    },
+  )()
+})
+
+export const getTickets = cache(async (domain: string) => {
+  const supabase = await supabaseClient()
+
+  return unstable_cache(
+    async () => {
+      return getTicketsQuery(supabase, domain)
+    },
+    ['tickets', domain],
+    {
+      tags: [`tickets-${domain}`],
       revalidate: 60 * 60 * 24, // 24 hours
     },
   )()

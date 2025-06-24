@@ -1,8 +1,5 @@
-import {
-  getTicketCategories,
-  getTicketCategoryGroups,
-} from '@/lib/queries/cached'
-import { getDomainFromOrganization } from '@/lib/utils'
+import { getTicketCategories, getTicketCategoryGroups } from '@/queries/cached'
+import { getDomainFromOrganization } from '@/utils'
 import Link from 'next/link'
 
 type Props = {
@@ -30,12 +27,23 @@ export default async function Page({ params, searchParams }: Props) {
 
   if (!group) {
     return (
-      <div className='flex flex-col'>
-        {groups.map((group) => (
-          <Link key={group.id} href={buildUrl({ group: group.id })}>
-            {group.name}
-          </Link>
-        ))}
+      <div className='mx-auto flex w-full max-w-5xl flex-col gap-8 pt-8'>
+        <div className='space-y-1'>
+          <h1 className='text-3xl font-semibold tracking-tight'>
+            Create new ticket
+          </h1>
+        </div>
+        <div className='grid grid-cols-3 gap-2'>
+          {groups.map((group) => (
+            <Link
+              key={group.id}
+              href={buildUrl({ group: group.id })}
+              className='hover:border-primary rounded-lg border p-4 transition-all'
+            >
+              {group.name}
+            </Link>
+          ))}
+        </div>
       </div>
     )
   }
@@ -47,15 +55,23 @@ export default async function Page({ params, searchParams }: Props) {
 
   if (!category) {
     return (
-      <div className='flex flex-col'>
-        {filteredCategories.map((category) => (
-          <Link
-            key={category.id}
-            href={buildUrl({ group, category: category.id })}
-          >
-            {category.name}
-          </Link>
-        ))}
+      <div className='mx-auto flex w-full max-w-5xl flex-col gap-8 pt-8'>
+        <div className='space-y-1'>
+          <h1 className='text-3xl font-semibold tracking-tight'>
+            Create new ticket
+          </h1>
+        </div>
+        <div className='grid grid-cols-3 gap-2'>
+          {filteredCategories.map((category) => (
+            <Link
+              key={category.id}
+              href={buildUrl({ group, category: category.id })}
+              className='hover:border-primary rounded-lg border p-4 transition-all'
+            >
+              {category.name}
+            </Link>
+          ))}
+        </div>
       </div>
     )
   }

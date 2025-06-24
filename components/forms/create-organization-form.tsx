@@ -1,5 +1,6 @@
 'use client'
 
+import { createOrganizationAction } from '@/actions/create-organization-action'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -10,9 +11,8 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { createOrganizationAction } from '@/lib/actions/create-organization-action'
 import { env } from '@/lib/env'
-import { createOrganizationSchema } from '@/lib/schemas/create-organization-schema'
+import { createOrganizationSchema } from '@/schemas/create-organization-schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useAction } from 'next-safe-action/hooks'
 import { useRouter } from 'next/navigation'

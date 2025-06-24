@@ -1,4 +1,4 @@
-import { Database } from '@/lib/types/supabase'
+import { Database } from '@/types/supabase'
 import { createClient } from '@supabase/supabase-js'
 import { schemaTask } from '@trigger.dev/sdk/v3'
 import { randomUUID } from 'crypto'

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start -p 80",
     "lint": "next lint",
-    "gen:types": "bunx supabase gen types typescript --project-id ayghcmntntrjmtswohrs > lib/types/supabase.ts"
+    "gen:types": "bunx supabase gen types typescript --project-id ayghcmntntrjmtswohrs > types/supabase.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
@@ -20,6 +20,7 @@
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "2.49.8",
     "@t3-oss/env-nextjs": "^0.13.8",
+    "@tanstack/react-table": "^8.21.3",
     "@trigger.dev/sdk": "^3.3.17",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

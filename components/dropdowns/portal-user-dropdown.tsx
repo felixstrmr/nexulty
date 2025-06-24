@@ -1,5 +1,6 @@
 'use client'
 
+import { signoutAction } from '@/actions/signout-action'
 import Avatar from '@/components/avatar'
 import {
   DropdownMenu,
@@ -8,8 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { signoutAction } from '@/lib/actions/signout-action'
-import { User } from '@/lib/types'
+import { User } from '@/types'
 import { LogOut } from 'lucide-react'
 import { useAction } from 'next-safe-action/hooks'
 import { useRouter } from 'next/navigation'

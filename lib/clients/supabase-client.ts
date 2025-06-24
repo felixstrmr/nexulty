@@ -1,5 +1,5 @@
 import { env } from '@/lib/env'
-import { Database } from '@/lib/types/supabase'
+import { Database } from '@/types/supabase'
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 

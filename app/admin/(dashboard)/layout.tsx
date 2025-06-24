@@ -1,4 +1,4 @@
-import { getUser } from '@/lib/queries/cached'
+import { getUser } from '@/queries/cached'
 import { redirect } from 'next/navigation'
 
 type Props = {

@@ -54,30 +54,37 @@ export const setupOrganizationTask = schemaTask({
     const defaultTicketStatuses = [
       {
         name: 'Open',
+        type: 'open' as const,
         organization: organizationId,
       },
       {
         name: 'In Progress',
+        type: 'open' as const,
         organization: organizationId,
       },
       {
         name: 'Pending',
+        type: 'open' as const,
         organization: organizationId,
       },
       {
         name: 'On Hold',
+        type: 'open' as const,
         organization: organizationId,
       },
       {
         name: 'Resolved',
+        type: 'closed' as const,
         organization: organizationId,
       },
       {
         name: 'Closed',
+        type: 'closed' as const,
         organization: organizationId,
       },
       {
         name: 'Cancelled',
+        type: 'closed' as const,
         organization: organizationId,
       },
     ]

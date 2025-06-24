@@ -1,5 +1,6 @@
 import { columns } from '@/components/tables/tickets/portal/columns'
 import { DataTable } from '@/components/tables/tickets/portal/data-table'
+import PortalTicketTabs from '@/components/tabs/portal-ticket-tabs'
 import { buttonVariants } from '@/components/ui/button'
 import { getTickets } from '@/queries/cached'
 import { getDomainFromOrganization } from '@/utils'
@@ -26,7 +27,10 @@ export default async function Page({ params }: Props) {
           Create ticket
         </Link>
       </div>
-      <DataTable columns={columns} data={tickets} />
+      <div className='flex flex-col gap-4'>
+        <PortalTicketTabs />
+        <DataTable columns={columns} data={tickets} />
+      </div>
     </div>
   )
 }

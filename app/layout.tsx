@@ -1,4 +1,4 @@
-import Providers from '@/components/providers'
+import Providers from '@/components/providers/providers'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import { Metadata } from 'next/types'

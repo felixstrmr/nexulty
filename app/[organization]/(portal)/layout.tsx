@@ -11,7 +11,7 @@ export default async function PortalLayout({ children, params }: Props) {
   const domain = getDomainFromOrganization(organization)
 
   return (
-    <div className='flex size-full flex-col bg-zinc-50'>
+    <div className='flex size-full flex-col bg-zinc-50 dark:bg-zinc-900'>
       <PortalNavbar domain={domain} />
       <div className='flex-1 px-1 pb-1'>
         <div className='bg-background flex size-full rounded-sm border'>

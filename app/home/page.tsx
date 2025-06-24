@@ -1,22 +1,18 @@
-import { TrendingUp } from 'lucide-react'
-
 export default function Page() {
   return (
-    <div className='flex size-full items-center justify-center bg-zinc-50'>
-      <div className='grid grid-cols-2 gap-12'>
-        <div className='space-y-4'>
-          <h1 className='text-6xl leading-14 font-semibold tracking-tight'>
-            Open Source <br />
-            <span className='text-primary'>IT Service Management</span> <br />
-            built for Scale{' '}
-            <TrendingUp className='text-primary inline-block size-14' />
+    <div className='flex size-full bg-zinc-50 p-1 dark:bg-zinc-900'>
+      <div className='bg-background flex flex-1 items-center justify-center rounded-sm border shadow-xs'>
+        <div className='space-y-6'>
+          <h1 className='max-w-2xl text-7xl leading-16 font-semibold tracking-tight'>
+            <span className='text-primary'>Open Source ITSM</span> <br />
+            for small businesses <br />— built for scale.
           </h1>
-          <p className='text-muted-foreground max-w-sm text-2xl'>
-            Nexulty brings ITIL best practices to small businesses, creating a
-            solid foundation for growth.
+          <p className='text-muted-foreground max-w-lg text-2xl leading-7'>
+            Streamline your IT operations with our modern, intuitive platform.
+            Get notified when we launch and be among the first to experience the
+            future of IT service management.
           </p>
         </div>
-        <div className='bg-background size-full rounded-lg border p-4 shadow-xs'></div>
       </div>
     </div>
   )

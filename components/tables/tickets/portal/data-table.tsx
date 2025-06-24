@@ -79,7 +79,7 @@ export function DataTable<TData, TValue>({
                 {row.getVisibleCells().map((cell) => (
                   <TableCell
                     key={cell.id}
-                    className='bg-background cursor-pointer border-t group-last:border-b first:border-l first:group-first:rounded-tl-md first:group-last:rounded-bl-md last:border-r last:group-first:rounded-tr-md last:group-last:rounded-br-md'
+                    className='bg-background cursor-pointer border-t transition-colors group-last:border-b first:border-l first:group-first:rounded-tl-md first:group-last:rounded-bl-md last:border-r last:group-first:rounded-tr-md last:group-last:rounded-br-md'
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>

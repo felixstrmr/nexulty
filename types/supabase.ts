@@ -123,18 +123,21 @@ export type Database = {
           id: string
           name: string
           organization: string
+          type: Database["public"]["Enums"]["ticket_status_types"]
         }
         Insert: {
           created_at?: string
           id?: string
           name: string
           organization: string
+          type: Database["public"]["Enums"]["ticket_status_types"]
         }
         Update: {
           created_at?: string
           id?: string
           name?: string
           organization?: string
+          type?: Database["public"]["Enums"]["ticket_status_types"]
         }
         Relationships: [
           {
@@ -185,6 +188,7 @@ export type Database = {
           id: string
           number: string
           organization: string
+          status: string
           title: string
           type: string
         }
@@ -197,6 +201,7 @@ export type Database = {
           id?: string
           number: string
           organization: string
+          status: string
           title: string
           type: string
         }
@@ -209,6 +214,7 @@ export type Database = {
           id?: string
           number?: string
           organization?: string
+          status?: string
           title?: string
           type?: string
         }
@@ -239,6 +245,13 @@ export type Database = {
             columns: ["organization"]
             isOneToOne: false
             referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tickets_status_fkey"
+            columns: ["status"]
+            isOneToOne: false
+            referencedRelation: "ticket_statuses"
             referencedColumns: ["id"]
           },
           {
@@ -297,15 +310,16 @@ export type Database = {
     }
     Functions: {
       is_organization_agent: {
-        Args: { userid: string; workspaceid: string }
+        Args: { userid: string; organizationid: string }
         Returns: boolean
       }
       is_organization_user: {
-        Args: { userid: string; workspaceid: string }
+        Args: { userid: string; organizationid: string }
         Returns: boolean
       }
     }
     Enums: {
+      ticket_status_types: "open" | "closed"
       user_roles: "administrator" | "agent" | "customer"
     }
     CompositeTypes: {
@@ -422,6 +436,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      ticket_status_types: ["open", "closed"],
       user_roles: ["administrator", "agent", "customer"],
     },
   },

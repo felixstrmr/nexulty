@@ -26,11 +26,11 @@ export default async function PortalNavbar({}: Props) {
         <Separator orientation='vertical' className='min-h-4' />
         <PortalNavbarNavigation />
       </div>
-      <div className='flex items-center gap-2'>
+      <div className='flex items-center gap-4'>
         {user.role !== 'customer' && (
           <Link
             href='/dashboard'
-            className={buttonVariants({ variant: 'ghost' })}
+            className={buttonVariants({ variant: 'outline' })}
           >
             Dashboard
           </Link>

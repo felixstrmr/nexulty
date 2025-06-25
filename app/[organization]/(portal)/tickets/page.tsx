@@ -2,7 +2,7 @@ import { columns } from '@/components/tables/tickets/portal/columns'
 import { DataTable } from '@/components/tables/tickets/portal/data-table'
 import PortalTicketTabs from '@/components/tabs/portal-ticket-tabs'
 import { buttonVariants } from '@/components/ui/button'
-import { getTickets } from '@/queries/cached'
+import { supabaseClient } from '@/lib/clients/supabase-client'
 import { getDomainFromOrganization } from '@/utils'
 import Link from 'next/link'
 
@@ -16,15 +16,19 @@ export default async function Page({ params, searchParams }: Props) {
   const { tab } = await searchParams
   const domain = getDomainFromOrganization(organization)
 
-  const tickets = await getTickets(domain)
-
-  let filteredTickets = tickets.filter(
-    (ticket) => ticket.status.type === 'open',
-  )
-
-  if (tab) {
-    filteredTickets = tickets.filter((ticket) => ticket.status.type === tab)
-  }
+  const supabase = await supabaseClient()
+  const { data: tickets } = await supabase
+    .from('tickets')
+    .select(
+      `
+      *,
+      organization!inner(domain),
+      status:ticket_statuses!inner(id, name, type)
+      `,
+    )
+    .eq('organization.domain', domain)
+    .eq('status.type', tab ?? 'open')
+    .throwOnError()
 
   return (
     <div className='mx-auto flex w-full max-w-5xl flex-col gap-8 pt-8'>
@@ -39,7 +43,7 @@ export default async function Page({ params, searchParams }: Props) {
       </div>
       <div className='flex size-full flex-col gap-4'>
         <PortalTicketTabs />
-        <DataTable columns={columns} data={filteredTickets} />
+        <DataTable columns={columns} data={tickets} />
       </div>
     </div>
   )

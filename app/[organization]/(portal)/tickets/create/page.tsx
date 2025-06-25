@@ -1,4 +1,4 @@
-import { getTicketCategories, getTicketCategoryGroups } from '@/queries/cached'
+import { supabaseClient } from '@/lib/clients/supabase-client'
 import { getDomainFromOrganization } from '@/utils'
 import Link from 'next/link'
 
@@ -12,9 +12,18 @@ export default async function Page({ params, searchParams }: Props) {
   const { group, category } = await searchParams
   const domain = getDomainFromOrganization(organization)
 
-  const [categories, groups] = await Promise.all([
-    getTicketCategories(domain),
-    getTicketCategoryGroups(domain),
+  const supabase = await supabaseClient()
+  const [{ data: categories }, { data: groups }] = await Promise.all([
+    supabase
+      .from('ticket_categories')
+      .select('*, organization!inner(domain)')
+      .eq('organization.domain', domain)
+      .throwOnError(),
+    supabase
+      .from('ticket_category_groups')
+      .select('*, organization!inner(domain)')
+      .eq('organization.domain', domain)
+      .throwOnError(),
   ])
 
   const buildUrl = (params: { group?: string; category?: string }) => {

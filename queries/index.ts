@@ -68,17 +68,22 @@ export async function getTicketQuery(
   return data
 }
 
-export async function getTicketsQuery(supabase: Supabase, domain: string) {
+export async function getTicketsQuery(
+  supabase: Supabase,
+  domain: string,
+  type: string,
+) {
   const { data } = await supabase
     .from('tickets')
     .select(
       `
       *,
       organization!inner(domain),
-      status:ticket_statuses(id, name, type)
+      status:ticket_statuses!inner(id, name, type)
     `,
     )
     .eq('organization.domain', domain)
+    .eq('status.type', type)
     .throwOnError()
 
   return data

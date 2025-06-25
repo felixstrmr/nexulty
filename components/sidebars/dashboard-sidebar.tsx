@@ -41,7 +41,9 @@ export default function DashboardSidebar() {
 
   return (
     <aside className='flex flex-col p-4'>
-      <NexultyIcon />
+      <Link href='/dashboard'>
+        <NexultyIcon />
+      </Link>
       <Separator className='mx-auto my-4 max-w-4' />
       <div className='flex h-full flex-col justify-between'>
         <div className='space-y-1'>

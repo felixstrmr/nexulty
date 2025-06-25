@@ -74,12 +74,42 @@ export const getTicket = cache(async (domain: string, ticketId: string) => {
   )()
 })
 
-export const getTickets = cache(async (domain: string) => {
+export const getOpenTickets = cache(async (domain: string) => {
   const supabase = await supabaseClient()
 
   return unstable_cache(
     async () => {
-      return getTicketsQuery(supabase, domain)
+      return getTicketsQuery(supabase, domain, 'open')
+    },
+    ['tickets', domain],
+    {
+      tags: [`tickets-${domain}`],
+      revalidate: 60 * 60 * 24, // 24 hours
+    },
+  )()
+})
+
+export const getClosedTickets = cache(async (domain: string) => {
+  const supabase = await supabaseClient()
+
+  return unstable_cache(
+    async () => {
+      return getTicketsQuery(supabase, domain, 'closed')
+    },
+    ['tickets', domain],
+    {
+      tags: [`tickets-${domain}`],
+      revalidate: 60 * 60 * 24, // 24 hours
+    },
+  )()
+})
+
+export const getTickets = cache(async (domain: string, type: string) => {
+  const supabase = await supabaseClient()
+
+  return unstable_cache(
+    async () => {
+      return getTicketsQuery(supabase, domain, type)
     },
     ['tickets', domain],
     {

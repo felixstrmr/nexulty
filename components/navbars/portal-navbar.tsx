@@ -1,3 +1,4 @@
+import RevalidateButton from '@/components/buttons/revalidate-button'
 import PortalUserDropdown from '@/components/dropdowns/portal-user-dropdown'
 import { NexultyIcon } from '@/components/icons/nexulty-icon'
 import PortalNavbarNavigation from '@/components/navbars/portal-navbar-navigation'
@@ -23,6 +24,7 @@ export default async function PortalNavbar({}: Props) {
         <PortalNavbarNavigation />
       </div>
       <div className='flex items-center gap-2'>
+        <RevalidateButton />
         <PortalUserDropdown user={user} />
       </div>
     </div>

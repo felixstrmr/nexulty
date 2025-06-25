@@ -74,7 +74,8 @@ export async function getTicketsQuery(supabase: Supabase, domain: string) {
     .select(
       `
       *,
-      organization!inner(domain)
+      organization!inner(domain),
+      status:ticket_statuses(id, name, type)
     `,
     )
     .eq('organization.domain', domain)

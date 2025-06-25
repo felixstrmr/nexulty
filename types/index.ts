@@ -4,6 +4,14 @@ import { SupabaseClient } from '@supabase/supabase-js'
 export type Supabase = SupabaseClient<Database>
 
 export type User = Tables<'users'>
-export type Ticket = Tables<'tickets'>
 export type TicketCategory = Tables<'ticket_categories'>
 export type TicketCategoryGroup = Tables<'ticket_category_groups'>
+export type TicketStatus = Tables<'ticket_statuses'>
+
+export type Ticket = Tables<'tickets'> & {
+  status: {
+    id: string
+    name: string
+    type: string
+  }
+}

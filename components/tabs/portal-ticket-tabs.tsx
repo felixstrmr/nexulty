@@ -6,6 +6,7 @@ import { useQueryState } from 'nuqs'
 export default function PortalTicketTabs() {
   const [currentTab, setCurrentTab] = useQueryState('tab', {
     defaultValue: 'open',
+    shallow: false,
   })
 
   const tabs = [

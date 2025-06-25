@@ -8,13 +8,23 @@ import Link from 'next/link'
 
 type Props = {
   params: Promise<{ organization: string }>
+  searchParams: Promise<{ tab?: string }>
 }
 
-export default async function Page({ params }: Props) {
+export default async function Page({ params, searchParams }: Props) {
   const { organization } = await params
+  const { tab } = await searchParams
   const domain = getDomainFromOrganization(organization)
 
   const tickets = await getTickets(domain)
+
+  let filteredTickets = tickets.filter(
+    (ticket) => ticket.status.type === 'open',
+  )
+
+  if (tab) {
+    filteredTickets = tickets.filter((ticket) => ticket.status.type === tab)
+  }
 
   return (
     <div className='mx-auto flex w-full max-w-5xl flex-col gap-8 pt-8'>
@@ -27,9 +37,9 @@ export default async function Page({ params }: Props) {
           Create ticket
         </Link>
       </div>
-      <div className='flex flex-col gap-4'>
+      <div className='flex size-full flex-col gap-4'>
         <PortalTicketTabs />
-        <DataTable columns={columns} data={tickets} />
+        <DataTable columns={columns} data={filteredTickets} />
       </div>
     </div>
   )

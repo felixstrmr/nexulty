@@ -2,15 +2,39 @@
 
 import { Ticket } from '@/types'
 import { ColumnDef } from '@tanstack/react-table'
+import { format } from 'date-fns'
+import { useRouter } from 'next/navigation'
+
+const TicketNumberCell = ({
+  ticketId,
+  number,
+}: {
+  ticketId: string
+  number: string
+}) => {
+  const router = useRouter()
+
+  return (
+    <p
+      className='text-primary cursor-pointer hover:underline'
+      onClick={() => router.push(`/tickets/${ticketId}`)}
+    >
+      {number}
+    </p>
+  )
+}
 
 export const columns: ColumnDef<Ticket>[] = [
   {
     accessorKey: 'number',
     header: '#',
     cell: ({ row }) => {
-      const number = row.original.number
-
-      return <p className='text-primary'>{number}</p>
+      return (
+        <TicketNumberCell
+          ticketId={row.original.id}
+          number={row.original.number}
+        />
+      )
     },
   },
   {
@@ -18,7 +42,7 @@ export const columns: ColumnDef<Ticket>[] = [
     header: 'Title',
   },
   {
-    accessorKey: 'status',
+    accessorKey: 'status.name',
     header: 'Status',
   },
   {
@@ -28,6 +52,15 @@ export const columns: ColumnDef<Ticket>[] = [
       const assignee = row.original.assigned_to
 
       return assignee ? assignee : 'Unassigned'
+    },
+  },
+  {
+    accessorKey: 'created_at',
+    header: 'Created',
+    cell: ({ row }) => {
+      const createdAt = row.original.created_at
+
+      return format(createdAt, 'PPp')
     },
   },
 ]

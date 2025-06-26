@@ -1,6 +1,5 @@
 import TicketsSidebar from '@/components/sidebars/tickets-sidebar'
 import { getDomainFromOrganization } from '@/utils'
-import { Suspense } from 'react'
 
 type Props = {
   children: React.ReactNode
@@ -13,9 +12,7 @@ export default async function TicketsLayout({ children, params }: Props) {
 
   return (
     <div className='flex size-full'>
-      <Suspense fallback={<div>Loading...</div>}>
-        <TicketsSidebar domain={domain} />
-      </Suspense>
+      <TicketsSidebar domain={domain} />
       {children}
     </div>
   )

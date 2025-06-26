@@ -1,4 +1,4 @@
-import { supabaseClient } from '@/lib/clients/supabase-client'
+import { getTicket } from '@/queries/cached'
 import { getDomainFromOrganization } from '@/utils'
 import { notFound } from 'next/navigation'
 
@@ -10,20 +10,7 @@ export default async function Page({ params }: Props) {
   const { organization, ticketId } = await params
   const domain = getDomainFromOrganization(organization)
 
-  const supabase = await supabaseClient()
-  const { data: ticket } = await supabase
-    .from('tickets')
-    .select(
-      `
-      *,
-      organization!inner(domain),
-      status:ticket_statuses!inner(id, name, type)
-      `,
-    )
-    .eq('organization.domain', domain)
-    .eq('id', ticketId)
-    .maybeSingle()
-    .throwOnError()
+  const ticket = await getTicket(domain, ticketId)
 
   if (!ticket) {
     notFound()

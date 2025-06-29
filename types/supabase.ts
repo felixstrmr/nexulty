@@ -119,23 +119,35 @@ export type Database = {
       }
       ticket_statuses: {
         Row: {
+          color: string
           created_at: string
+          icon: string
           id: string
+          is_default: boolean
           name: string
+          order: number
           organization: string
           type: Database["public"]["Enums"]["ticket_status_types"]
         }
         Insert: {
+          color: string
           created_at?: string
+          icon: string
           id?: string
+          is_default: boolean
           name: string
+          order: number
           organization: string
           type: Database["public"]["Enums"]["ticket_status_types"]
         }
         Update: {
+          color?: string
           created_at?: string
+          icon?: string
           id?: string
+          is_default?: boolean
           name?: string
+          order?: number
           organization?: string
           type?: Database["public"]["Enums"]["ticket_status_types"]
         }

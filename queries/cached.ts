@@ -36,7 +36,7 @@ export const getTicketStatuses = cache(async (domain: string) => {
 
   return unstable_cache(
     async () => {
-      return getTicketStatusesQuery(supabase, domain)
+      return getTicketStatusesQuery(supabase)
     },
     ['ticket-statuses', domain],
     {
@@ -76,12 +76,12 @@ export const getTicketCategoryGroups = cache(async (domain: string) => {
   )()
 })
 
-export const getTicket = cache(async (domain: string, ticketId: string) => {
+export const getTicket = cache(async (ticketId: string) => {
   const supabase = await supabaseClient()
 
   return unstable_cache(
     async () => {
-      return getTicketQuery(supabase, domain, ticketId)
+      return getTicketQuery(supabase, ticketId)
     },
     ['ticket', ticketId],
     {

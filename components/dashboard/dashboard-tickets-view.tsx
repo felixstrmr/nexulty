@@ -1,3 +1,5 @@
+import { columns } from '@/components/tables/tickets/dashboard/columns'
+import { DataTable } from '@/components/tables/tickets/dashboard/data-table'
 import { getTickets } from '@/queries/tickets'
 
 type Props = {
@@ -7,22 +9,12 @@ type Props = {
 }
 
 export default async function DashboardTicketsView({ type, status }: Props) {
-  const { tickets, totalCount, totalPages, currentPage } = await getTickets({
+  const { tickets } = await getTickets({
     filters: {
       type: type ?? 'open',
       status,
     },
   })
 
-  return (
-    <div>
-      <pre>
-        {JSON.stringify(
-          { tickets, totalCount, totalPages, currentPage },
-          null,
-          2,
-        )}
-      </pre>
-    </div>
-  )
+  return <DataTable columns={columns} data={tickets} />
 }

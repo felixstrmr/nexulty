@@ -11,19 +11,15 @@ export async function getUserQuery(supabase: Supabase, userId: string) {
   return data
 }
 
-export async function getTicketStatusesQuery(
-  supabase: Supabase,
-  domain: string,
-) {
+export async function getTicketStatusesQuery(supabase: Supabase) {
   const { data } = await supabase
     .from('ticket_statuses')
     .select(
       `
-      *,
-      organization!inner(domain)
+      *
     `,
     )
-    .eq('organization.domain', domain)
+    .order('order', { ascending: true })
     .throwOnError()
 
   return data
@@ -65,20 +61,15 @@ export async function getTicketCategoryGroupsQuery(
   return data
 }
 
-export async function getTicketQuery(
-  supabase: Supabase,
-  domain: string,
-  ticketId: string,
-) {
+export async function getTicketQuery(supabase: Supabase, ticketId: string) {
   const { data } = await supabase
     .from('tickets')
     .select(
       `
       *,
-      organization!inner(domain)
+      status:ticket_statuses!inner(id, name, type)
     `,
     )
-    .eq('organization.domain', domain)
     .eq('id', ticketId)
     .maybeSingle()
     .throwOnError()

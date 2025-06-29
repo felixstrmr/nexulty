@@ -1,3 +1,4 @@
+import { TicketStatusInsert } from '@/types'
 import { Database } from '@/types/supabase'
 import { createClient } from '@supabase/supabase-js'
 import { schemaTask } from '@trigger.dev/sdk/v3'
@@ -54,40 +55,59 @@ export const setupOrganizationTask = schemaTask({
     const defaultTicketStatuses = [
       {
         name: 'Open',
-        type: 'open' as const,
+        type: 'open',
+        icon: 'CircleDashed',
+        color: '#52525b',
+        is_default: true,
+        order: 0,
         organization: organizationId,
       },
       {
         name: 'In Progress',
-        type: 'open' as const,
+        type: 'open',
+        icon: 'CirclePlay',
+        color: '#2563eb',
+        is_default: false,
+        order: 1,
         organization: organizationId,
       },
       {
         name: 'Pending',
-        type: 'open' as const,
-        organization: organizationId,
-      },
-      {
-        name: 'On Hold',
-        type: 'open' as const,
+        type: 'open',
+        icon: 'CirclePause',
+        color: '#ca8a04',
+        is_default: false,
+        order: 2,
         organization: organizationId,
       },
       {
         name: 'Resolved',
-        type: 'closed' as const,
+        type: 'closed',
+        icon: 'CircleChevronDown',
+        color: '#16a34a',
+        is_default: false,
+        order: 3,
         organization: organizationId,
       },
       {
         name: 'Closed',
-        type: 'closed' as const,
+        type: 'closed',
+        icon: 'CircleCheck',
+        color: '#9333ea',
+        is_default: false,
+        order: 4,
         organization: organizationId,
       },
       {
         name: 'Cancelled',
-        type: 'closed' as const,
+        type: 'closed',
+        icon: 'CircleX',
+        color: '#dc2626',
+        is_default: false,
+        order: 5,
         organization: organizationId,
       },
-    ]
+    ] satisfies TicketStatusInsert[]
 
     const defaultTicketCategoryGroups = [
       {

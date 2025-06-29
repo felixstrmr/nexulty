@@ -2,7 +2,6 @@
 
 import { Ticket } from '@/types'
 import { ColumnDef } from '@tanstack/react-table'
-import { format } from 'date-fns'
 import Link from 'next/link'
 
 export const columns: ColumnDef<Ticket>[] = [
@@ -21,29 +20,11 @@ export const columns: ColumnDef<Ticket>[] = [
     },
   },
   {
-    accessorKey: 'title',
-    header: 'Title',
-  },
-  {
     accessorKey: 'status.name',
     header: 'Status',
   },
   {
-    accessorKey: 'assigned_to',
-    header: 'Assignee',
-    cell: ({ row }) => {
-      const assignee = row.original.assigned_to
-
-      return assignee ? assignee : 'Unassigned'
-    },
-  },
-  {
-    accessorKey: 'created_at',
-    header: 'Created',
-    cell: ({ row }) => {
-      const createdAt = row.original.created_at
-
-      return format(createdAt, 'PPp')
-    },
+    accessorKey: 'title',
+    header: 'Title',
   },
 ]

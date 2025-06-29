@@ -15,15 +15,18 @@ export default async function Page({ params, searchParams }: Props) {
   const { type, status } = await searchParams
 
   return (
-    <Suspense
-      key={JSON.stringify({ type, status })}
-      fallback={
-        <div className='flex size-full items-center justify-center'>
-          <Loader className='size-4 animate-spin' />
-        </div>
-      }
-    >
-      <TicketsView domain={domain} type={type} status={status} />
-    </Suspense>
+    <div className='flex size-full flex-col gap-4 p-4'>
+      <h1 className='text-3xl font-semibold tracking-tight'>Tickets</h1>
+      <Suspense
+        key={JSON.stringify({ type, status })}
+        fallback={
+          <div className='flex size-full items-center justify-center'>
+            <Loader className='size-4 animate-spin' />
+          </div>
+        }
+      >
+        <TicketsView domain={domain} type={type} status={status} />
+      </Suspense>
+    </div>
   )
 }

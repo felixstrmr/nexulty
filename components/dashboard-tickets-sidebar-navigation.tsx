@@ -1,5 +1,6 @@
 'use client'
 
+import TicketStatusIcon from '@/components/ticket-status-icon'
 import { TicketStatus } from '@/types'
 import { cn } from '@/utils'
 import { ChevronRight, CircleCheck, CircleDashed } from 'lucide-react'
@@ -137,12 +138,13 @@ function SidebarItem({
       <button
         onClick={handleStatusClick}
         className={cn(
-          'flex h-8 w-full cursor-pointer items-center rounded-md px-2 transition-colors',
+          'flex h-8 w-full cursor-pointer items-center gap-2 rounded-md px-2 transition-colors',
           currentStatus === status.id
             ? 'text-foreground bg-muted'
             : 'text-muted-foreground hover:bg-muted',
         )}
       >
+        <TicketStatusIcon status={status} />
         <span className='text-sm'>{status.name}</span>
       </button>
     </div>

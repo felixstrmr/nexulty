@@ -1,16 +1,14 @@
 import { getTicket } from '@/queries/cached'
-import { getDomainFromOrganization } from '@/utils'
 import { notFound } from 'next/navigation'
 
 type Props = {
-  params: Promise<{ organization: string; ticketId: string }>
+  params: Promise<{ ticketId: string }>
 }
 
 export default async function Page({ params }: Props) {
-  const { organization, ticketId } = await params
-  const domain = getDomainFromOrganization(organization)
+  const { ticketId } = await params
 
-  const ticket = await getTicket(domain, ticketId)
+  const ticket = await getTicket(ticketId)
 
   if (!ticket) {
     notFound()

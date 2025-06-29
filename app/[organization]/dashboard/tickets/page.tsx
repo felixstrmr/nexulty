@@ -1,4 +1,4 @@
-import { getTickets } from '@/queries/cached'
+import { getTickets } from '@/queries/tickets'
 import { getDomainFromOrganization } from '@/utils'
 
 type Props = {
@@ -12,11 +12,22 @@ export default async function Page({ params, searchParams }: Props) {
 
   const { type } = await searchParams
 
-  const tickets = await getTickets(domain, type ?? 'open')
+  const { tickets, totalCount, totalPages, currentPage } = await getTickets({
+    domain,
+    filters: {
+      type: type ?? 'open',
+    },
+  })
 
   return (
     <div>
-      <pre>{JSON.stringify(tickets, null, 2)}</pre>
+      <pre>
+        {JSON.stringify(
+          { tickets, totalCount, totalPages, currentPage },
+          null,
+          2,
+        )}
+      </pre>
     </div>
   )
 }

@@ -7,7 +7,7 @@ type Props = {
   type?: string
 }
 
-export default async function TicketsView({ type }: Props) {
+export default async function PortalTicketsView({ type }: Props) {
   const { tickets } = await getTickets({
     filters: {
       type: type ?? 'open',

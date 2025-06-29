@@ -1,5 +1,5 @@
-import PortalTicketTabs from '@/components/portal/portal-ticket-tabs'
-import TicketsView from '@/components/portal/tickets-view'
+import PortalTicketTabs from '@/components/portal-ticket-tabs'
+import PortalTicketsView from '@/components/portal-tickets-view'
 import PortalTicketsSkeleton from '@/components/skeletons/portal-tickets-skeleton'
 import { buttonVariants } from '@/components/ui/button'
 import { getDomainFromOrganization } from '@/utils'
@@ -30,7 +30,7 @@ export default async function Page({ params, searchParams }: Props) {
       <div className='flex size-full flex-col gap-4'>
         <PortalTicketTabs />
         <Suspense fallback={<PortalTicketsSkeleton />}>
-          <TicketsView domain={domain} type={type} />
+          <PortalTicketsView domain={domain} type={type} />
         </Suspense>
       </div>
     </div>

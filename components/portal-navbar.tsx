@@ -1,6 +1,6 @@
-import PortalNavbarNavigation from '@/app/[organization]/(public)/portal-navbar-navigation'
 import { NexultyIcon } from '@/components/icons/nexulty-icon'
-import PortalUserDropdown from '@/components/portal/portal-user-dropdown'
+import PortalNavbarNavigation from '@/components/portal-navbar-navigation'
+import PortalUserDropdown from '@/components/portal-user-dropdown'
 import { buttonVariants } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { getUser } from '@/queries/cached'

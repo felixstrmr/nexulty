@@ -1,4 +1,4 @@
-import TicketsView from '@/components/dashboard/tickets-view'
+import TicketsView from '@/components/dashboard/dashboard-tickets-view'
 import { getDomainFromOrganization } from '@/utils'
 import { Loader } from 'lucide-react'
 import { Suspense } from 'react'

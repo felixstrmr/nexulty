@@ -10,7 +10,7 @@ type Props = {
   statuses: TicketStatus[]
 }
 
-export default function TicketsSidebarNavigation({ statuses }: Props) {
+export default function DashboardTicketsSidebarNavigation({ statuses }: Props) {
   const [currentType, setCurrentType] = useQueryState('type', {
     defaultValue: 'open',
     shallow: false,

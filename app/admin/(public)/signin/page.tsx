@@ -1,8 +1,16 @@
 import AdminSigninForm from '@/components/forms/admin-signin-form'
 import { NexultyIcon } from '@/components/icons/nexulty-icon'
+import { getUser } from '@/queries/cached'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
-export default function Page() {
+export default async function Page() {
+  const user = await getUser()
+
+  if (user) {
+    redirect('/')
+  }
+
   return (
     <div className='flex size-full items-center justify-center'>
       <div className='bg-muted rounded-2xl p-1'>

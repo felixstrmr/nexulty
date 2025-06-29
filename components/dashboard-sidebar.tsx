@@ -40,11 +40,13 @@ export default function DashboardSidebar() {
   ]
 
   return (
-    <aside className='flex flex-col p-4'>
-      <Link href='/dashboard'>
-        <NexultyIcon />
-      </Link>
-      <Separator className='mx-auto my-4 max-w-4' />
+    <aside className='flex flex-col items-center border border-transparent pb-4'>
+      <div className='border border-transparent p-4 pb-4.5'>
+        <Link href='/dashboard'>
+          <NexultyIcon />
+        </Link>
+      </div>
+      <Separator className='mx-auto mb-4 max-w-4' />
       <div className='flex h-full flex-col justify-between'>
         <div className='space-y-1'>
           {itemsTop.map((item) => (

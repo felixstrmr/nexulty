@@ -4,7 +4,7 @@ import { cn } from '@/utils'
 import { useQueryState } from 'nuqs'
 
 export default function PortalTicketTabs() {
-  const [currentTab, setCurrentTab] = useQueryState('tab', {
+  const [currentType, setCurrentType] = useQueryState('type', {
     defaultValue: 'open',
     shallow: false,
   })
@@ -25,10 +25,10 @@ export default function PortalTicketTabs() {
       {tabs.map((tab) => (
         <div key={tab.name} role='tab' className='flex flex-col space-y-1'>
           <button
-            onClick={() => setCurrentTab(tab.value)}
+            onClick={() => setCurrentType(tab.value)}
             className={cn(
               'hover:bg-muted flex h-8 cursor-pointer items-center justify-center rounded-md px-2 transition-all',
-              currentTab === tab.value
+              currentType === tab.value
                 ? 'text-foreground'
                 : 'text-muted-foreground',
             )}
@@ -38,7 +38,7 @@ export default function PortalTicketTabs() {
           <div
             className={cn(
               'h-px w-full',
-              currentTab === tab.value ? 'bg-foreground' : 'bg-transparent',
+              currentType === tab.value ? 'bg-foreground' : 'bg-transparent',
             )}
           />
         </div>

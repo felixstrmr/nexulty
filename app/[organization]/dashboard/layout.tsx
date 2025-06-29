@@ -1,4 +1,4 @@
-import DashboardSidebar from '@/components/sidebars/dashboard-sidebar'
+import DashboardSidebar from '@/components/dashboard/dashboard-sidebar'
 
 type Props = {
   children: React.ReactNode

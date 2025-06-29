@@ -35,6 +35,10 @@ export const getTickets = cache(async (props: Props) => {
         query = query.eq('status.type', filters.type)
       }
 
+      if (filters?.status) {
+        query = query.eq('status.id', filters.status)
+      }
+
       const { data, error } = await query
       if (error) throw error
 
@@ -52,7 +56,7 @@ export const getTickets = cache(async (props: Props) => {
       props.limit?.toString() ?? '10',
     ],
     {
-      revalidate: 300, // 5 minutes
+      revalidate: 300,
       tags: [`tickets-${props.domain}`],
     },
   )()

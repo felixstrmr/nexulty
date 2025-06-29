@@ -1,4 +1,4 @@
-import TicketsSidebar from '@/components/sidebars/tickets-sidebar'
+import TicketsSidebar from '@/components/dashboard/tickets-sidebar'
 import { getDomainFromOrganization } from '@/utils'
 
 type Props = {

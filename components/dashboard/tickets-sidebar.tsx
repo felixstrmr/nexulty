@@ -1,4 +1,4 @@
-import TicketsSidebarNavigation from '@/components/sidebars/tickets-sidebar-navigation'
+import TicketsSidebarNavigation from '@/components/dashboard/tickets-sidebar-navigation'
 import { getTicketStatuses } from '@/queries/cached'
 
 type Props = {

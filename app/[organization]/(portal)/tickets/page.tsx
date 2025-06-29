@@ -1,22 +1,20 @@
-import { columns } from '@/components/tables/tickets/portal/columns'
-import { DataTable } from '@/components/tables/tickets/portal/data-table'
-import PortalTicketTabs from '@/components/tabs/portal-ticket-tabs'
+import PortalTicketTabs from '@/components/portal/portal-ticket-tabs'
+import TicketsView from '@/components/portal/tickets-view'
+import PortalTicketsSkeleton from '@/components/skeletons/portal-tickets-skeleton'
 import { buttonVariants } from '@/components/ui/button'
-import { getTickets } from '@/queries/cached'
 import { getDomainFromOrganization } from '@/utils'
 import Link from 'next/link'
+import { Suspense } from 'react'
 
 type Props = {
   params: Promise<{ organization: string }>
-  searchParams: Promise<{ tab?: string }>
+  searchParams: Promise<{ type?: string }>
 }
 
 export default async function Page({ params, searchParams }: Props) {
   const { organization } = await params
-  const { tab } = await searchParams
+  const { type } = await searchParams
   const domain = getDomainFromOrganization(organization)
-
-  const tickets = await getTickets(domain, tab ?? 'open')
 
   return (
     <div className='mx-auto flex w-full max-w-5xl flex-col gap-8 pt-8'>
@@ -31,7 +29,9 @@ export default async function Page({ params, searchParams }: Props) {
       </div>
       <div className='flex size-full flex-col gap-4'>
         <PortalTicketTabs />
-        <DataTable columns={columns} data={tickets} />
+        <Suspense fallback={<PortalTicketsSkeleton />}>
+          <TicketsView domain={domain} type={type} />
+        </Suspense>
       </div>
     </div>
   )

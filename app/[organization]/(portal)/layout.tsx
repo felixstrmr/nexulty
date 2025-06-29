@@ -1,4 +1,4 @@
-import PortalNavbar from '@/components/navbars/portal-navbar'
+import PortalNavbar from '@/components/portal/portal-navbar'
 import { getDomainFromOrganization } from '@/utils'
 
 type Props = {

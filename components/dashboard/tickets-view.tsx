@@ -6,9 +6,8 @@ type Props = {
   status?: string
 }
 
-export default async function TicketsView({ domain, type, status }: Props) {
+export default async function TicketsView({ type, status }: Props) {
   const { tickets, totalCount, totalPages, currentPage } = await getTickets({
-    domain,
     filters: {
       type: type ?? 'open',
       status,

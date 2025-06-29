@@ -1,5 +1,3 @@
-type Props = {}
-
-export default function PortalTicketsSkeleton({}: Props) {
+export default function PortalTicketsSkeleton() {
   return <div>PortalTicketsSkeleton</div>
 }

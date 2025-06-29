@@ -1,5 +1,6 @@
 import TicketsView from '@/components/dashboard/tickets-view'
 import { getDomainFromOrganization } from '@/utils'
+import { Loader } from 'lucide-react'
 import { Suspense } from 'react'
 
 type Props = {
@@ -14,10 +15,15 @@ export default async function Page({ params, searchParams }: Props) {
   const { type, status } = await searchParams
 
   return (
-    <div>
-      <Suspense fallback={<div>Loading...</div>}>
-        <TicketsView domain={domain} type={type} status={status} />
-      </Suspense>
-    </div>
+    <Suspense
+      key={JSON.stringify({ type, status })}
+      fallback={
+        <div className='flex size-full items-center justify-center'>
+          <Loader className='size-4 animate-spin' />
+        </div>
+      }
+    >
+      <TicketsView domain={domain} type={type} status={status} />
+    </Suspense>
   )
 }

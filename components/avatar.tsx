@@ -35,7 +35,7 @@ export default function Avatar({ value, avatar, size = 'md' }: Props) {
       <AvatarImage src={avatar ?? undefined} className={sizeClass} />
       <AvatarFallback
         className={cn(
-          'bg-blue-100 text-blue-500 uppercase dark:bg-blue-950',
+          'bg-blue-100 text-blue-500 uppercase dark:bg-blue-900 dark:text-blue-400',
           sizeClass,
         )}
       >

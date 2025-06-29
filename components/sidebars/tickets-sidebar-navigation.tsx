@@ -13,11 +13,11 @@ type Props = {
 export default function TicketsSidebarNavigation({ statuses }: Props) {
   const [currentType, setCurrentType] = useQueryState('type', {
     defaultValue: 'open',
-    shallow: true,
+    shallow: false,
   })
 
   const [currentStatus, setCurrentStatus] = useQueryState('status', {
-    shallow: true,
+    shallow: false,
   })
 
   const groupedStatuses = statuses.reduce(
